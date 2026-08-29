@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('register_form');
+    return view('home');
 });
+
+Route::post('/register', [PatientEnrollmentController::class, 'store'])->name('patient.register');
