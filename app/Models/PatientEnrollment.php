@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PatientEnrollment extends Model
 {
-    use HasFactory;
+    use HasFactory, softDeletes;
 
     protected $fillable = [
         'full_name',
@@ -23,8 +24,10 @@ class PatientEnrollment extends Model
         'govt_id',
         'consent',
         'status',
-        'created_at',
-        'updated_at',
-        'deleted_at',
+    ];
+
+    protected $casts = [
+        'date_of_birth' => 'date',
+        'consent' => 'boolean',
     ];
 }

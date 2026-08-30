@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class storePatientDetails extends FormRequest
+class storePatientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,6 @@ class storePatientDetails extends FormRequest
     public function rules(): array
     {
         return [
-             // Validate the form data
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|unique:patient_enrollments,email',
             'contact_number' => 'required|string|max:15|unique:patient_enrollments,contact_number',
