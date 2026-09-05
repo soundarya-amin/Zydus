@@ -15,11 +15,11 @@ Route::get('/login', function () {
         return redirect()->route('admin.dashboard');
     }
     return view('admin_login');
-})->name('login')->middleware('prevent-back-history');
+})->name('admin.login')->middleware('prevent-back-history');
 
 //Admin login and logout routes
-Route::post('/login', [AdminDashboardController::class, 'login'])->name('login.post');
-Route::post('/logout', [AdminDashboardController::class, 'logout'])->name('logout');
+Route::post('/login', [AdminDashboardController::class, 'login'])->name('admin.login');
+Route::post('/logout', [AdminDashboardController::class, 'logout'])->name('admin.logout');
 
 // Protected Admin Dashboard Routes
 Route::middleware(['auth', 'prevent-back-history'])->group(function () {
@@ -29,7 +29,7 @@ Route::middleware(['auth', 'prevent-back-history'])->group(function () {
     // Route::get('/admin', [AdminDashboardController::class, 'index']);
 
     // PatientController Routes
-    Route::get('/admin/patients', [PatientController::class, 'index'])->name('admin.patients.list');
+    Route::get('/admin/patients', [PatientController::class, 'index'])->name('admin.patients.index');
     Route::get('/admin/patients/create', [PatientController::class, 'create'])->name('admin.patients.create');
     Route::post('/admin/patients', [PatientController::class, 'store'])->name('admin.patients.store');
     Route::get('/admin/patients/{id}', [PatientController::class, 'show'])->name('admin.patients.show');

@@ -1,6 +1,3 @@
-<!-- =====================================================
-     ADMIN TOP NAVBAR / HEADER
-====================================================== -->
 <nav class="admin-navbar">
     <div class="navbar-brand-wrapper">
         <a href="{{ route('admin.dashboard') }}" class="brand-logo-text">
@@ -32,14 +29,14 @@
                     <li><a class="dropdown-item py-2" href="#"><i class="bi bi-person me-2 text-muted"></i> Activity Log</a></li>
                     <li><a class="dropdown-item py-2" href="{{ url('/') }}" target="_blank"><i class="bi bi-globe me-2 text-muted"></i> View Website</a></li>
                     <li><hr class="dropdown-divider my-1"></li>
-                    <li>
+                    <!-- <li>
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
                             <button type="submit" class="dropdown-item py-2 text-danger">
                                 <i class="bi bi-box-arrow-right me-2"></i> Sign Out
                             </button>
                         </form>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
 
@@ -67,14 +64,14 @@
             </li>
 
             <!-- Power Logout -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
                     <button type="submit" class="nav-icon-btn border-0 bg-transparent" title="Logout">
                         <i class="bi bi-power text-danger"></i>
                     </button>
                 </form>
-            </li>
+            </li> -->
         </ul>
     </div>
 </nav>

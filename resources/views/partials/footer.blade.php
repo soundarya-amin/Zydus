@@ -1,30 +1,39 @@
-<footer class="footer-custom">
-    <div class="container">
-        <div class="row align-items-center gy-4">
-            <div class="col-lg-6">
-                <h4 class="footer-brand-title">Diasens<span>Connect</span></h4>
-                <p class="footer-desc">
-                    Official Patient Support Program for Diasens, developed by RxPONT in partnership with Zydus Lifesciences.
-                </p>
-            </div>
-            <div class="col-lg-6 text-lg-end">
-                <div class="d-inline-flex align-items-center flex-wrap gap-3 mb-2">
-                    <a href="tel:+916827421020" class="btn-outline-navy-pill text-white border-secondary">
-                        <i class="bi bi-telephone me-2"></i>+91 6827 421 020
-                    </a>
-                </div>
-            </div>
-        </div>
 
-        <div class="footer-bottom-bar d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-            <p class="mb-0">© 2026 RxPONT &amp; Zydus Lifesciences. All rights reserved.</p>
-            <div class="d-flex align-items-center gap-3">
-                <p class="mb-0">Diasens Connect Patient Support Program</p>
-                <span class="text-white-50 d-none d-sm-inline">•</span>
-                <a href="{{ url('/login') }}" class="footer-admin-link">
-                    <i class="bi bi-lock me-1"></i>Access Admin Portal
-                </a>
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <a class="navbar-brand text-white mb-3 d-inline-block" href="#"><img src="{{ asset('images/Rxpont logo.png') }}" alt="RxPONT Logo"></a>
+                    <!-- <p class="text-white-50 small">Empowering modern healthcare providers with intuitive telehealth SaaS tools.</p> -->
+                </div>
+                <div class="col-md-4 col-6">
+                    <h6 class="fw-bold mb-3">Contact</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="{{ route('patient.register.form') }}"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+                        <li class="mb-2"><a href="#"><i class="fa-solid fa-phone"></i> 8073376393</a></li>
+                        <li class="mb-2"><a href="#"><i class="fa-brands fa-whatsapp"></i> 8073376393</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-6">
+                    <h6 class="fw-bold mb-3">Access</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="{{ route('admin.login') }}">Access Portal</a></li>
+                        <!-- <li class="mb-2"><a href="#">Careers</a></li>
+                        <li class="mb-2"><a href="#">Press Kit</a></li> -->
+                    </ul>
+                </div>
+                <!-- <div class="col-md-2 col-6">
+                    <h6 class="fw-bold mb-3">Legal</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#">Terms of Service</a></li>
+                        <li class="mb-2"><a href="#">HIPAA Compliance</a></li>
+                    </ul>
+                </div> -->
+            </div>
+            <div class="border-top border-secondary pt-4 text-center text-white-50 small">
+                © <?= date('Y') ?> RxPONT India Pvt Ltd. All rights reserved.
             </div>
         </div>
-    </div>
-</footer>
+    </footer>

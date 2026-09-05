@@ -23,7 +23,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('admin.patients.list') ? 'active' : '' }}" href="{{ route('admin.patients.list') }}">
+            <a class="nav-link {{ request()->routeIs('admin.patients.index') ? 'active' : '' }}" href="{{ route('admin.patients.index') }}">
                 <div class="nav-left">
                     <i class="bi bi-person-plus-fill"></i>
                     <span>Patient Enrollments</span>

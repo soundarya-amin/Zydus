@@ -10,12 +10,10 @@ use App\Models\User;
 
 class AdminDashboardController extends Controller
 {
-    /**
-     * Show the Admin Dashboard with stats and charts.
-     */
+    // Admin Dashboard Functionality
     public function index()
     {
-        // Enforce authentication
+        //Authentication check to ensure only logged-in users can access the dashboard
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Please log in to access the Admin Dashboard.');
         }
@@ -28,7 +26,6 @@ class AdminDashboardController extends Controller
         // Fetch recent patient enrollments
         $recentPatients = PatientEnrollment::latest()->take(6)->get();
 
-        // Gender breakdown for donut chart
         $maleCount = PatientEnrollment::where('gender', 'male')->count();
         $femaleCount = PatientEnrollment::where('gender', 'female')->count();
         $otherCount = PatientEnrollment::where('gender', 'other')->count();
@@ -52,9 +49,7 @@ class AdminDashboardController extends Controller
         ));
     }
 
-    /**
-     * Handle Admin Login with automatic Bcrypt upgrade for legacy/plain-text passwords.
-     */
+    //Admin Login Functionality
     public function login(Request $request)
     {
         $request->validate([
@@ -66,38 +61,32 @@ class AdminDashboardController extends Controller
         $password = $request->input('password');
         $remember = $request->boolean('remember');
 
-        // 1. Find user by email
         $user = User::where('email', $email)->first();
 
         if ($user) {
             $rawDbPassword = $user->getRawOriginal('password') ?? $user->password;
             $isValid = false;
 
-            // Check standard Bcrypt / Argon hash
             try {
                 if (Hash::check($password, $rawDbPassword)) {
                     $isValid = true;
                 }
             } catch (\Throwable $e) {
-                // Not a Bcrypt format (e.g. plain text or md5 in DB)
                 if ($rawDbPassword === $password || $rawDbPassword === md5($password)) {
                     $isValid = true;
                 }
             }
 
-            // Fallback plain text / md5 comparison
             if (!$isValid && ($rawDbPassword === $password || $rawDbPassword === md5($password))) {
                 $isValid = true;
             }
 
             if ($isValid) {
-                // If the stored password wasn't a valid Bcrypt hash, upgrade and save it now
                 if (!password_get_info($rawDbPassword)['algo']) {
                     $user->password = Hash::make($password);
                     $user->save();
                 }
 
-                // Log the user in and redirect to admin dashboard
                 Auth::login($user, $remember);
                 $request->session()->regenerate();
 
@@ -108,7 +97,6 @@ class AdminDashboardController extends Controller
                          ->withErrors(['email' => 'The provided password does not match our records.']);
         }
 
-        // If no users exist in the database, automatically create the first administrator
         if (User::count() === 0) {
             $user = User::create([
                 'name' => 'Administrator',
@@ -126,9 +114,7 @@ class AdminDashboardController extends Controller
                      ->withErrors(['email' => 'No account found with this email address.']);
     }
 
-    /**
-     * Handle Admin Logout with cache-busting headers.
-     */
+    // Admin Logout Functionality
     public function logout(Request $request)
     {
         Auth::logout();

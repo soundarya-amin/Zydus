@@ -25,9 +25,4 @@ class PatientEnrollment extends Model
         'consent',
         'status',
     ];
-
-    protected $casts = [
-        'date_of_birth' => 'date',
-        'consent' => 'boolean',
-    ];
 }

@@ -1,37 +1,30 @@
-<nav class="navbar navbar-expand-lg sticky-top navbar-custom" id="mainNavbar">
-    <div class="container">
-        <!-- Brand Logo -->
-        <a class="brand-logo-container" href="{{ url('/') }}">
-            <div>
-                <img src="{{asset('images/Rxpont logo.png')}}" alt="logo">
+  <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <img src="#" class='w-100' alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link px-3" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#steps">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#faq">FAQ</a></li>
+                </ul> -->
+                <ul class="navbar-nav mx-auto">
+                
+                    <li class="nav-item"><a class="nav-link px-3" href=""  rel="noopener noreferrer"><i class="fa-solid fa-phone"></i> 8073376393</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href=""  rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> 8073376393</a></li>
+
+                </ul>
+                <hr>
+                
+                </div>
+                <a href="{{ route('patient.register.form') }}" class="btn btn-coral ml-1">New Patient Enrollment</a>
             </div>
-        </a>
-
-        <!-- Mobile Toggler -->
-        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="bi bi-list fs-2 text-dark"></i>
-        </button>
-
-        <!-- Navigation Menu -->
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2 my-3 my-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/#about') }}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/#pontassist') }}">PONTAssist™</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/#support') }}">Our Support</a>
-                </li>
-                <li class="nav-item ms-lg-3">
-                    <a href="{{route('patient.register.form')}}" class="btn-coral-pill text-decoration-none">
-                        <span>Enroll Patient</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </li>
-            </ul>
         </div>
-    </div>
-</nav>
+    </nav>
