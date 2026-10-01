@@ -11,8 +11,7 @@
                     <h6 class="fw-bold mb-3">Contact</h6>
                     <ul class="list-unstyled small">
                         <li class="mb-2"><a href="{{ route('patient.register.form') }}"><i class="fa-solid fa-user-plus"></i> Register</a></li>
-                        <li class="mb-2"><a href="#"><i class="fa-solid fa-phone"></i> 8073376393</a></li>
-                        <li class="mb-2"><a href="#"><i class="fa-brands fa-whatsapp"></i> 8073376393</a></li>
+                        <li class="mb-2"><a href="#"><i class="fa-solid fa-phone"></i>  +91 6827 421 021</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 col-6">

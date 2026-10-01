@@ -11,18 +11,20 @@ class PatientEnrollment extends Model
     use HasFactory, softDeletes;
 
     protected $fillable = [
+        'patient_id',
+        'zydus_rep_name',
+        'patient_type',
         'full_name',
         'email',
         'contact_number',
         'caregiver_contact_number',
-        'permanent_address',
-        'delivery_address',
-        'gender',
-        'date_of_birth',
-        'nationality',
-        'prescription',
+        'doctor_name',
+        'address',
+        'city',
+        'state',
+        'pincode',
         'govt_id',
-        'consent',
+        'prescription',
         'status',
     ];
 }

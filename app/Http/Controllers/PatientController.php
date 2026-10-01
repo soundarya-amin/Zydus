@@ -25,6 +25,14 @@ class PatientController extends Controller
 
             ->addIndexColumn()
 
+            ->editcolumn('zydus_rep_name', function ($patient) {
+                return $patient->zydus_rep_name;
+            })
+
+            ->editColumn('patient_type', function ($patient) {
+                return $patient->patient_type;
+            })
+
             ->editColumn('full_name', function ($patient) {
                 return $patient->full_name;
             })
@@ -41,12 +49,16 @@ class PatientController extends Controller
                 return $patient->caregiver_contact_number;
             })
 
-            ->editColumn('permanent_address', function ($patient) {
-                return $patient->permanent_address;
+            ->editColumn('doctor_name', function ($patient) {
+                return $patient->doctor_name;
             })
 
-            ->editColumn('delivery_address', function ($patient) {
-                return $patient->delivery_address;
+            ->editColumn('address', function ($patient) {
+                return $patient->address;
+            })
+
+            ->editColumn('state', function ($patient) {
+                return $patient->state;
             })      
 
             ->editColumn('prescription', function ($patient) {
@@ -79,22 +91,12 @@ class PatientController extends Controller
 
              ->addColumn('actions', function ($patient) {
                 return '
-                <div class="d-flex align-items-center gap-1">
-                    <a href="' . route('admin.patients.show', $patient->id) . '"
-                       class="btn btn-sm btn-info">
-                         <i class="bi bi-eye"></i>
-                    </a>
-
-                    <a href="' . route('admin.patients.edit', $patient->id) . '"
-                       class="btn btn-sm btn-primary">
-                        <i class="bi bi-pencil"></i>
-                    </a>
-
-                    <button type="button"
-                            class="btn btn-sm btn-danger delete-patient"
-                            data-id="' . $patient->id . '">
-                        <i class="bi bi-trash"></i>
-                    </button>
+                <div class="d-flex justify-content-end align-items-end">
+                    <div class="btn btn-sm btn-light border rounded-circle" title="View Details">
+                        <a href="' . route('admin.patients.show', $patient->id) . '">
+                            <i class="bi bi-eye text-primary"></i>
+                        </a>
+                    </div>
                 </div>
                 ';
             })
@@ -107,7 +109,7 @@ class PatientController extends Controller
 
     public function create()
     {
-        return view('admin.patients.create');
+        // return view('admin.patients.create');
     }
 
     public function store(storePatientRequest $request)
@@ -155,11 +157,7 @@ class PatientController extends Controller
         'email' => $request->email,
         'contact_number' => $request->contact_number,
         'caregiver_contact_number' => $request->caregiver_contact_number,
-        'permanent_address' => $request->permanent_address,
-        'delivery_address' => $request->delivery_address,
-        'gender' => $request->gender,
-        'date_of_birth' => $request->date_of_birth,
-        'nationality' => $request->nationality,
+        'address' => $request->address,
         'status'  => $request->status,
     ]);
 
@@ -207,4 +205,17 @@ class PatientController extends Controller
 
         return redirect()->route('admin.patients.index')->with('success', 'Patient enrollment record deleted successfully.');
     }
+
+    public function updateStatus(Request $request, Patient $patient)
+    {
+        $request->validate([
+            'status' => 'required|in:0,1',
+        ]);
+
+        $patient->status = $request->status;
+        $patient->save();
+
+        return back()->with('success', 'Patient status updated successfully.');
+    }
+
 }

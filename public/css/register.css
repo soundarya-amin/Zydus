@@ -167,3 +167,83 @@
     transform: translateY(-2px);
     box-shadow: 0 14px 30px rgba(240, 92, 56, 0.4);
 }
+
+.card-registration {
+    position: relative;
+}
+
+.card-registration .col-xl-7 {
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.card-registration .col-xl-7::-webkit-scrollbar {
+    width: 7px;
+}
+
+.card-registration .col-xl-7::-webkit-scrollbar-thumb {
+    background: #0A2233;
+    border-radius: 10px;
+}
+
+.registration-form-col {
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Close button */
+.registration-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 100;
+}
+
+.registration-close button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #0A2233;
+    color: #fff;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+.registration-close button:hover {
+    background: #F05C38;
+    transform: scale(1.08);
+}
+
+.registration-form-col::-webkit-scrollbar {
+    width: 7px;
+}
+
+.registration-form-col::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.registration-form-col::-webkit-scrollbar-thumb {
+    background: #0A2233;
+    border-radius: 10px;
+}
+
+.registration-form-col::-webkit-scrollbar-thumb:hover {
+    background: #F05C38;
+}
+
+.registration-form-col {
+    scrollbar-width: thin;
+    scrollbar-color: #0A2233 #f1f1f1;
+}
+

@@ -33,25 +33,43 @@
     </section>
 
     <!-- TRUST LOGOS -->
-    <section class="py-4 border-top border-bottom bg-light">
+   <section class="py-4 border-top border-bottom bg-light">
         <div class="container">
-            <img src="{{ asset('images/logodiasens.png') }}" class='' alt="Diasens Logo">
-            <div class="row">
-                <div class="col-md-6 d-flex-justify-content-center">
-                    <img src="{{ asset('images/about.png') }}" class='w-50' alt="About Diasens">
+            <div class="d-flex justify-content-center mb-4">
+                <img 
+                    src="{{ asset('images/logodiasens.png') }}" 
+                    alt="Diasens Logo"
+                    class="img-fluid"
+                    style="max-height: 140px; width: auto;"
+                >
+            </div>
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6 d-flex justify-content-center mb-4 mb-md-0">
+                    <img 
+                        src="{{ asset('images/about.png') }}" 
+                        alt="About Diasens"
+                        class="img-fluid"
+                        style="max-height: 250px; width: auto;"
+                    >
                 </div>
+
                 <div class="col-md-6 d-flex align-items-center">
-                    <div >
-                        <!-- <span class="fw-bold fs-5 text-secondary"><i class="bi bi-hospital me-1"></i> LOGOIPSUM</span>
-                        <span class="fw-bold fs-5 text-secondary"><i class="bi bi-capsule me-1"></i> HEALTHCARE</span>
-                        <span class="fw-bold fs-5 text-secondary"><i class="bi bi-activity me-1"></i> MEDIPLUS</span>
-                        <span class="fw-bold fs-5 text-secondary"><i class="bi bi-heart-pulse me-1"></i> CAREFIRST</span> -->
-                        <h1 class='text-start'>Your glucose has something to say... <br><br><span style='color:#5aa5a1'>Diasens</span> help translate it.</h1>
+                    <div class="w-100">
+                        <h1 class="text-start mb-0">
+                            Your glucose has something to say...
+                            <br><br>
+                            <span style="color:#5aa5a1;">Diasens</span>
+                            help translate it.
+                        </h1>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
+
 
     <!-- FEATURES SECTION -->
     <section id="features" class="py-5">

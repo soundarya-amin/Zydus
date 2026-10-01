@@ -16,9 +16,9 @@ use App\Http\Controllers\Api\PatientController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::apiResource('patient-enrollments',PatientEnrollmentController::class);
-Route::apiResource('patients',PatientController::class);
+// Route::apiResource('patient-enrollments',PatientEnrollmentController::class);
+// Route::apiResource('patients',PatientController::class);

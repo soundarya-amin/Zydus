@@ -36,6 +36,8 @@ Route::middleware(['auth', 'prevent-back-history'])->group(function () {
     Route::get('/admin/patients/{id}/edit', [PatientController::class, 'edit'])->name('admin.patients.edit');
     Route::put('/admin/patients/{id}', [PatientController::class, 'update'])->name('admin.patients.update');
     Route::delete('/admin/patients/{id}', [PatientController::class, 'destroy'])->name('admin.patients.destroy');
+    Route::put('/admin/patients/status/{id}', [PatientController::class, 'updateStatus'])->name('admin.patients.updateStatus');
+
 });
 
 // Patient Enrollment Routes

@@ -34,7 +34,6 @@ class PatientEnrollmentController extends Controller
         }
 
         $validatedData['status'] = $validatedData['status'] ?? 0;
-        $validatedData['consent'] = $request->boolean('consent');
 
         // Create the patient enrollment record
         PatientEnrollment::create($validatedData);

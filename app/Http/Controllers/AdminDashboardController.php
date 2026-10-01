@@ -10,10 +10,9 @@ use App\Models\User;
 
 class AdminDashboardController extends Controller
 {
-    // Admin Dashboard Functionality
+    // Admin Dashboard
     public function index()
     {
-        //Authentication check to ensure only logged-in users can access the dashboard
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Please log in to access the Admin Dashboard.');
         }
@@ -26,30 +25,15 @@ class AdminDashboardController extends Controller
         // Fetch recent patient enrollments
         $recentPatients = PatientEnrollment::latest()->take(6)->get();
 
-        $maleCount = PatientEnrollment::where('gender', 'male')->count();
-        $femaleCount = PatientEnrollment::where('gender', 'female')->count();
-        $otherCount = PatientEnrollment::where('gender', 'other')->count();
-
-        // If no records exist yet, provide realistic mock baseline numbers for aesthetic preview
-        $displayTotal = $totalPatients > 0 ? $totalPatients : 15000;
-        $displayPending = $pendingPatients > 0 ? $pendingPatients : 4563;
-        $displayApproved = $approvedPatients > 0 ? $approvedPatients : 9557;
-
         return view('admin.dashboard', compact(
             'totalPatients',
             'pendingPatients',
             'approvedPatients',
-            'recentPatients',
-            'maleCount',
-            'femaleCount',
-            'otherCount',
-            'displayTotal',
-            'displayPending',
-            'displayApproved'
+            'recentPatients'
         ));
     }
 
-    //Admin Login Functionality
+    //Admin Login
     public function login(Request $request)
     {
         $request->validate([
@@ -114,14 +98,14 @@ class AdminDashboardController extends Controller
                      ->withErrors(['email' => 'No account found with this email address.']);
     }
 
-    // Admin Logout Functionality
+    // Admin Logout
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')
+        return redirect()->route('admin.login')
                          ->with('success', 'You have been logged out.')
                          ->header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
                          ->header('Pragma', 'no-cache')
