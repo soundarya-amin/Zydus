@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientEnrollmentController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\NurseController;
 
 Route::get('/', function () {
     return view('home');
@@ -37,6 +38,10 @@ Route::middleware(['auth', 'prevent-back-history'])->group(function () {
     Route::put('/admin/patients/{id}', [PatientController::class, 'update'])->name('admin.patients.update');
     Route::delete('/admin/patients/{id}', [PatientController::class, 'destroy'])->name('admin.patients.destroy');
     Route::put('/admin/patients/status/{id}', [PatientController::class, 'updateStatus'])->name('admin.patients.updateStatus');
+
+    // NurseController Routes
+    Route::get('/admin/nurses', [NurseController::class, 'index'])->name('admin.nurses.index'); 
+
 
 });
 

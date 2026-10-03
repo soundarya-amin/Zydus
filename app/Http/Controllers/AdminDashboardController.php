@@ -14,7 +14,7 @@ class AdminDashboardController extends Controller
     public function index()
     {
         if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Please log in to access the Admin Dashboard.');
+            return redirect()->route('admin.login')->with('error', 'Please log in to access the Admin Dashboard.');
         }
 
         // Calculate dynamic stats from PatientEnrollment

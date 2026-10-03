@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('patient_enrollments', function (Blueprint $table) {
             $table->id();
+            $table->string('patient_code')->unique();
             $table->string('zydus_rep_name')->nullable();
             $table->string('patient_type')->nullable();
             $table->string('full_name')->nullable();

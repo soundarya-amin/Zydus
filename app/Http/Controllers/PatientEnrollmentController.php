@@ -34,10 +34,19 @@ class PatientEnrollmentController extends Controller
         }
 
         $validatedData['status'] = $validatedData['status'] ?? 0;
+        $validatedData['patient_code'] = $this->generatePatientCode();
 
         // Create the patient enrollment record
         PatientEnrollment::create($validatedData);
 
         return redirect()->back()->with('success', 'Patient enrollment details have been submitted successfully! Our care coordinator will contact you shortly.');
     }
+
+    private function generatePatientCode(): string
+    {
+        return 'ZYD-' . str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+    }
+
+
+
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\storePatientRequest;
 use App\Http\Requests\updatePatientRequest;
+use App\Models\NurseAssigned;
 
 class PatientController extends Controller
 {
@@ -19,13 +20,18 @@ class PatientController extends Controller
         $approvedCount = PatientEnrollment::where('status', 1)->count();
 
        if ($request->ajax()) {
-        $patients = PatientEnrollment::query()->latest()->get();
+        $patients = PatientEnrollment::where('status', 0)->latest()->get();
+
         
         return DataTables::of($patients)
 
             ->addIndexColumn()
 
-            ->editcolumn('zydus_rep_name', function ($patient) {
+            ->editColumn('patient_code', function ($patient) {
+                return $patient->patient_code;
+            })
+
+            ->editColumn('zydus_rep_name', function ($patient) {
                 return $patient->zydus_rep_name;
             })
 
@@ -76,12 +82,17 @@ class PatientController extends Controller
             })
 
             ->editColumn('status', function ($patient) {
-                if ($patient->status == 1) {
-                    return '<span class="badge bg-success">Approved</span>';
+                if ($patient->status == 0) {
+                    return '<span class="badge bg-warning">Pending</span>';
+                } elseif ($patient->status == 1) {
+                    return '<span class="badge bg-success">Completed</span>';
+                } elseif ($patient->status == 2) {
+                    return '<span class="badge bg-primary">Assigned to Nurse</span>';
                 }
 
-                return '<span class="badge bg-warning">Pending</span>';
+                return '<span class="badge bg-secondary">Unknown</span>';
             })
+
 
             ->editColumn('created_at', function ($patient) {
                 return $patient->created_at
@@ -148,53 +159,53 @@ class PatientController extends Controller
         return view('admin.patients.edit', compact('patient'));
     }
 
-   public function update(UpdatePatientRequest $request, $id)
-{
-    $patient = PatientEnrollment::findOrFail($id);
+    public function update(UpdatePatientRequest $request, $id)
+    {
+        $patient = PatientEnrollment::findOrFail($id);
 
-    $patient->update([
-        'full_name' => $request->full_name,
-        'email' => $request->email,
-        'contact_number' => $request->contact_number,
-        'caregiver_contact_number' => $request->caregiver_contact_number,
-        'address' => $request->address,
-        'status'  => $request->status,
-    ]);
+        $patient->update([
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'contact_number' => $request->contact_number,
+            'caregiver_contact_number' => $request->caregiver_contact_number,
+            'address' => $request->address,
+            'status'  => $request->status,
+        ]);
 
-    if ($request->hasFile('prescription')) {
-        $file = $request->file('prescription');
+        if ($request->hasFile('prescription')) {
+            $file = $request->file('prescription');
 
-        $filename = uniqid() . '_prescription.' .
-            $file->getClientOriginalExtension();
+            $filename = uniqid() . '_prescription.' .
+                $file->getClientOriginalExtension();
 
-        $file->move(
-            public_path('storage/patient_documents/prescriptions'),
-            $filename
-        );
+            $file->move(
+                public_path('storage/patient_documents/prescriptions'),
+                $filename
+            );
 
-        $patient->prescription = 'patient_documents/prescriptions/' . $filename;
+            $patient->prescription = 'patient_documents/prescriptions/' . $filename;
+        }
+
+        if ($request->hasFile('govt_id')) {
+            $file = $request->file('govt_id');
+
+            $filename = uniqid() . '_govt_id.' .
+                $file->getClientOriginalExtension();
+
+            $file->move(
+                public_path('storage/patient_documents/govt_ids'),
+                $filename
+            );
+
+            $patient->govt_id = 'patient_documents/govt_ids/' . $filename;
+        }
+
+        $patient->save();
+
+        return redirect()
+            ->route('admin.patients.index')
+            ->with('success', 'Patient updated successfully.');
     }
-
-    if ($request->hasFile('govt_id')) {
-        $file = $request->file('govt_id');
-
-        $filename = uniqid() . '_govt_id.' .
-            $file->getClientOriginalExtension();
-
-        $file->move(
-            public_path('storage/patient_documents/govt_ids'),
-            $filename
-        );
-
-        $patient->govt_id = 'patient_documents/govt_ids/' . $filename;
-    }
-
-    $patient->save();
-
-    return redirect()
-        ->route('admin.patients.index')
-        ->with('success', 'Patient updated successfully.');
-}
 
 
     public function destroy($id)
@@ -206,16 +217,47 @@ class PatientController extends Controller
         return redirect()->route('admin.patients.index')->with('success', 'Patient enrollment record deleted successfully.');
     }
 
-    public function updateStatus(Request $request, Patient $patient)
+
+// Update the status of a patient and assign a nurse if the status is "Assigned to Nurse".
+    public function updateStatus(Request $request, $patientId)
     {
+        // dd($request->all());
         $request->validate([
-            'status' => 'required|in:0,1',
+            'status' => 'required|in:0,1,2',
         ]);
 
+        // Find EXISTING patient
+        $patient = PatientEnrollment::findOrFail($patientId);
+
+        // UPDATE existing patient
         $patient->status = $request->status;
         $patient->save();
 
+        // If status = 2, create nurse assignment
+        if ($request->status == 2) {
+
+            $nurseCode = $this->generateNurseCode();
+
+            $nurseAssigned = new \App\Models\NurseAssigned();
+            $nurseAssigned->nurse_code = $nurseCode;
+            $nurseAssigned->patient_id = $patient->id;
+            $nurseAssigned->status = 2;
+            $nurseAssigned->save();
+        }
+
         return back()->with('success', 'Patient status updated successfully.');
     }
+
+    private function generateNurseCode()
+    {
+        $lastNurse = NurseAssigned::orderBy('id', 'desc')->first();
+
+        $nextNumber = $lastNurse
+            ? ((int) str_replace('NURSE-', '', $lastNurse->nurse_code)) + 1
+            : 1;
+
+        return 'NURSE-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+    }
+
 
 }

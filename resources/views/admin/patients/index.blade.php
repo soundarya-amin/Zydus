@@ -30,6 +30,7 @@
         <table class="table table-hover align-middle table-custom" id="patientsTable">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Patient ID</th>
                     <th>Name</th>
                     <th>Contact Number</th>
@@ -57,6 +58,7 @@
             ajax: "{{ route('admin.patients.index') }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'patient_code', name: 'patient_code' },
                 { data: 'full_name', name: 'full_name' },
                 { data: 'contact_number', name: 'contact_number' },
                 { data: 'city', name: 'city' },

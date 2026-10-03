@@ -10,8 +10,10 @@ class PatientEnrollment extends Model
 {
     use HasFactory, softDeletes;
 
+    protected $table = 'patient_enrollments';
+
     protected $fillable = [
-        'patient_id',
+        'patient_code',
         'zydus_rep_name',
         'patient_type',
         'full_name',
