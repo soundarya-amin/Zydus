@@ -85,9 +85,9 @@ class PatientController extends Controller
                 if ($patient->status == 0) {
                     return '<span class="badge bg-warning">Pending</span>';
                 } elseif ($patient->status == 1) {
-                    return '<span class="badge bg-success">Completed</span>';
+                    return '<span class="badge bg-success">Assigned to Nurse</span>';
                 } elseif ($patient->status == 2) {
-                    return '<span class="badge bg-primary">Assigned to Nurse</span>';
+                    return '<span class="badge bg-primary">Completed</span>';
                 }
 
                 return '<span class="badge bg-secondary">Unknown</span>';
@@ -233,19 +233,19 @@ class PatientController extends Controller
         $patient->status = $request->status;
         $patient->save();
 
-        // If status = 2, create nurse assignment
-        if ($request->status == 2) {
+        // If status = 1, create nurse assignment
+        if ($request->status == 1) {
 
             $nurseCode = $this->generateNurseCode();
 
-            $nurseAssigned = new \App\Models\NurseAssigned();
+            $nurseAssigned = new NurseAssigned();
             $nurseAssigned->nurse_code = $nurseCode;
             $nurseAssigned->patient_id = $patient->id;
-            $nurseAssigned->status = 2;
+            $nurseAssigned->status = 1;
             $nurseAssigned->save();
         }
 
-        return back()->with('success', 'Patient status updated successfully.');
+       return redirect()->route('admin.patients.index')->with('success', 'Patient assigned to the Nurse successfully and status updated.');
     }
 
     private function generateNurseCode()
@@ -259,5 +259,62 @@ class PatientController extends Controller
         return 'NURSE-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
     }
 
+    public function completedPatients(Request $request)
+    {
+        // dd($request->all());
+
+        if ($request->ajax()) {
+            $patients = PatientEnrollment::where('status', 2)->latest()->get();
+
+            return DataTables::of($patients)
+                ->addIndexColumn()
+                ->editColumn('patient_code', function ($patient) {
+                    return $patient->patient_code;
+                })
+              
+                ->editColumn('full_name', function ($patient) {
+                    return $patient->full_name;
+                })
+                ->editColumn('contact_number', function ($patient) {
+                    return $patient->contact_number;
+                })
+                ->editColumn('city', function ($patient) {
+                    return $patient->city;
+                })
+                ->editColumn('state', function ($patient) {
+                    return $patient->state;
+                })
+                ->editColumn('status', function ($patient) {
+                    if ($patient->status == 0) {
+                        return '<span class="badge bg-warning">Pending</span>';
+                    } elseif ($patient->status == 1) {
+                        return '<span class="badge bg-success">Assigned to Nurse</span>';
+                    } elseif ($patient->status == 2) {
+                        return '<span class="badge bg-primary">Completed</span>';
+                    }
+
+                    return '<span class="badge bg-secondary">Unknown</span>';
+                })
+                ->editColumn('created_at', function ($patient) {
+                    return $patient->created_at
+                        ? $patient->created_at->format('d-m-Y H:i')
+                        : '-';
+                })
+                ->addColumn('actions', function ($patient) {
+                    return '
+                        <div class="d-flex justify-content-end align-items-end">
+                            <div class="btn btn-sm btn-light border rounded-circle" title="View Details">
+                                <a href="' . route('admin.patients.show', $patient->id) . '">
+                                    <i class="bi bi-eye text-primary"></i>
+                                </a>
+                            </div>
+                        </div>
+                    ';
+                })  
+              ->rawColumns(['status', 'actions'])
+              ->make(true);     
+        } 
+        return view('admin.completed.index');  
+    }             
 
 }

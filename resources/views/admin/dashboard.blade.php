@@ -84,12 +84,12 @@
                                 <td>{{ $patient->state ?? 'N/A' }}</td>
                                 <td>{{ $patient->city ?? 'N/A' }}</td>      
                                 <td>
-                                    @if($patient->status == 1)
-                                        <span class="status-badge status-approved">Approved</span>
-                                    @elseif($patient->status == 0)
+                                    @if($patient->status == 0)
                                         <span class="status-badge status-pending">Pending</span>
-                                    @else
-                                        <span class="status-badge status-review">In Review</span>
+                                    @elseif($patient->status == 1)
+                                        <span class="status-badge status-pending">Assigned to Nurse</span>
+                                    @elseif($patient->status == 2)
+                                        <span class="status-badge status-approved">Completed</span>
                                     @endif
                                 </td>
                             </tr>

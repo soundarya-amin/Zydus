@@ -51,29 +51,29 @@
                             <div class="mb-3">
                                 <strong>Patient Name:</strong>
                                 <span class="ms-2">
-                                    {{ $patient->full_name ?? 'N/A' }}
+                                    {{ $patient->patientEnrollment->full_name ?? 'N/A' }}
                                 </span>
                             </div>
 
                             <div class="mb-3">
                                 <strong>Patient ID:</strong>
                                 <span class="ms-2">
-                                    {{ $patient->patient_code ?? 'N/A' }}
+                                    {{ $patient->patientEnrollment->patient_code ?? 'N/A' }}
                                 </span>
                             </div>
 
                             <div class="mb-3">
                                 <strong>Patient Contact Number:</strong>
                                 <span class="ms-2">
-                                    {{ $patient->contact_number ?? 'N/A' }}
+                                    {{ $patient->patientEnrollment->contact_number ?? 'N/A' }}
                                 </span>
                             </div>
 
                             <div class="mb-3">
                                 <strong>Registered On:</strong>
                                 <span class="ms-2">
-                                    {{ $patient->created_at
-                                        ? \Carbon\Carbon::parse($patient->created_at)->format('Y-m-d')
+                                    {{ $patient->patientEnrollment->created_at
+                                        ? \Carbon\Carbon::parse($patient->patientEnrollment->created_at)->format('d-m-Y')
                                         : 'N/A'
                                     }}
                                 </span>
@@ -110,8 +110,8 @@
                         Status
                     </h5>
 
-                    <form action="{{ route('admin.patients.updateStatus', $patient->id) }}"
-                          method="POST">
+                    <form action="{{ route('admin.nurses.updateStatus', $patient->id) }}" method="POST">
+
 
                         @csrf
                         @method('PUT')
@@ -120,21 +120,21 @@
 
                         <div class="d-grid gap-3">
 
-                            <button type="submit"
+                            <!-- <button type="submit"
                                     name="status"
                                     value="1"
                                     class="btn btn-warning">
                                 <i class="mdi mdi-account-arrow-right me-1"></i>
                                 Assign to Nurse
-                            </button>
+                            </button> -->
 
-                            <!-- <button type="submit"
+                            <button type="submit"
                                     name="status"
-                                    value="1"
+                                    value="2"
                                     class="btn btn-success">
                                 <i class="mdi mdi-check-circle-outline me-1"></i>
                                 Completed
-                            </button> -->
+                            </button>
 
                         </div>
 
@@ -172,7 +172,7 @@
                             </div>
 
                             <div>
-                                {{ $patient->address ?? 'N/A' }}
+                                {{ $patient->patientEnrollment->address ?? 'N/A' }}
                             </div>
 
                         </div>
@@ -185,7 +185,7 @@
                             </div>
 
                             <div>
-                                {{ $patient->state ?? 'N/A' }}
+                                {{ $patient->patientEnrollment->state ?? 'N/A' }}
                             </div>
 
                         </div>
@@ -198,7 +198,7 @@
                             </div>
 
                             <div>
-                                {{ $patient->city ?? 'N/A' }}
+                                {{ $patient->patientEnrollment->city ?? 'N/A' }}
                             </div>
 
                         </div>
@@ -211,7 +211,7 @@
                             </div>
 
                             <div>
-                                {{ $patient->pincode ?? 'N/A' }}
+                                {{ $patient->patientEnrollment->pincode ?? 'N/A' }}
                             </div>
 
                         </div>
@@ -241,7 +241,7 @@
                         <strong>Contact Number:</strong>
 
                         <div class="mt-2">
-                            {{ $patient->caregiver_contact_number ?? 'N/A' }}
+                            {{ $patient->patientEnrollment->caregiver_contact_number ?? 'N/A' }}
                         </div>
 
                     </div>
@@ -274,9 +274,9 @@
                         Government ID Proof
                     </label>
 
-                    @if($patient->govt_id)
+                    @if($patient->patientEnrollment->govt_id)
 
-                        <a href="{{ asset('storage/' . $patient->govt_id) }}"
+                        <a href="{{ asset('storage/' . $patient->patientEnrollment->govt_id) }}"
                            target="_blank"
                            class="btn btn-outline-primary btn-sm">
 
@@ -303,9 +303,9 @@
                         Prescription Document
                     </label>
 
-                    @if($patient->prescription)
+                    @if($patient->patientEnrollment->prescription)
 
-                        <a href="{{ asset('storage/' . $patient->prescription) }}"
+                        <a href="{{ asset('storage/' . $patient->patientEnrollment->prescription) }}"
                            target="_blank"
                            class="btn btn-outline-info btn-sm">
 

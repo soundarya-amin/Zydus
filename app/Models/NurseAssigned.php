@@ -16,4 +16,9 @@ class NurseAssigned extends Model
         'patient_id',
         'status',
     ];
+
+    public function patientEnrollment()
+    {
+        return $this->belongsTo(PatientEnrollment::class, 'patient_id');
+    }
 }

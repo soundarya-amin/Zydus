@@ -29,4 +29,9 @@ class PatientEnrollment extends Model
         'prescription',
         'status',
     ];
+
+    public function nurseAssigned()
+    {
+        return $this->hasMany(NurseAssigned::class, 'patient_id');
+    }
 }

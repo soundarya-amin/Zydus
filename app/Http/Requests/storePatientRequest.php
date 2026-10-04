@@ -23,7 +23,7 @@ class storePatientRequest extends FormRequest
     {
         return [
             'zydus_rep_name' => 'nullable|string|max:255',
-            'patient_type' => 'nullable|string|in:patient,caregiver',
+            'patient_type' => 'nullable|string|in:new_registration,old_registration',
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|unique:patient_enrollments,email',
             'contact_number' => 'required|string|max:15|unique:patient_enrollments,contact_number',

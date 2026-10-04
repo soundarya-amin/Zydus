@@ -28,7 +28,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}" href="{{ route('admin.patients.index') }}">
+            <a class="nav-link {{ request()->routeIs('admin.nurses.index') ? 'active' : '' }}" href="{{ route('admin.nurses.index') }}">
                 <div class="nav-left">
                     <i class="fa-solid fa-user-nurse menu-icon"></i>
                     <span>Nurse Assigned</span>
@@ -37,7 +37,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}" href="{{ route('admin.patients.index') }}">
+            <a class="nav-link {{ request()->routeIs('admin.patients.completed') ? 'active' : '' }}" href="{{ route('admin.patients.completed') }}">
                 <div class="nav-left">
                     <i class="fa-solid fa-user-check menu-icon"></i>
                     <span>Completed</span>

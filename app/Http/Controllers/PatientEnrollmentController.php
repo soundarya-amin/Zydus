@@ -15,8 +15,6 @@ class PatientEnrollmentController extends Controller
 
     public function store(storePatientRequest $request)
     {
-
-        // dd($request->all());
         $validatedData = $request->validated();
 
         // Handle govt_id upload

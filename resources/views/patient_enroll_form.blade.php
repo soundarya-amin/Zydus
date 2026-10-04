@@ -81,8 +81,8 @@
                                                         id="patient_type" 
                                                         required>
                                                     <option value="" disabled selected>Select Patient Type</option>
-                                                    <option value="patient" {{ old('patient_type') == 'patient' ? 'selected' : '' }}>New Registration</option>
-                                                    <option value="caregiver" {{ old('patient_type') == 'caregiver' ? 'selected' : '' }}>Old Registration</option>
+                                                    <option value="new_registration">New Registration</option>
+                                                    <option value="old_registration">Old Registration</option>
                                                 </select>
                                             </div>
                                         </div>

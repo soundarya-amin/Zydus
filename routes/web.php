@@ -5,6 +5,7 @@ use App\Http\Controllers\PatientEnrollmentController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\NurseController;
+use App\Http\Controllers\CompletedPatientController;
 
 Route::get('/', function () {
     return view('home');
@@ -38,9 +39,15 @@ Route::middleware(['auth', 'prevent-back-history'])->group(function () {
     Route::put('/admin/patients/{id}', [PatientController::class, 'update'])->name('admin.patients.update');
     Route::delete('/admin/patients/{id}', [PatientController::class, 'destroy'])->name('admin.patients.destroy');
     Route::put('/admin/patients/status/{id}', [PatientController::class, 'updateStatus'])->name('admin.patients.updateStatus');
+    // Route::get('/admin/patients/completed', [PatientController::class, 'completedPatients'])->name('admin.patients.completed');
 
     // NurseController Routes
     Route::get('/admin/nurses', [NurseController::class, 'index'])->name('admin.nurses.index'); 
+    Route::get('/admin/nurses/{id}', [NurseController::class, 'show'])->name('admin.nurses.show');
+    Route::put('/admin/nurses/status/{id}', [NurseController::class, 'updateStatus'])->name('admin.nurses.updateStatus');
+
+    // Completed Patient Routes
+    Route::get('/admin/completedPatients', [CompletedPatientController::class, 'index'])->name('admin.patients.completed');
 
 
 });

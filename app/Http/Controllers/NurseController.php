@@ -4,110 +4,78 @@ namespace App\Http\Controllers;
 
 use App\Models\NurseAssigned;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class NurseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if ($request->ajax()) {
-        $patients = NurseAssigned::query()->latest()->get();
-        
-        return DataTables::of($patients)
+            $patients = NurseAssigned::where('status', 1)->latest()->get();
+            
+            return DataTables::of($patients)
 
-            ->addIndexColumn()
+                ->addIndexColumn()
 
-            ->editColumn('patient_code', function ($patient) {
-                return $patient->patient_code;
-            })
+                ->editColumn('patient_code', function ($patient) {
+                    return $patient->patientEnrollment->patient_code;
+                })
 
-            ->editColumn('zydus_rep_name', function ($patient) {
-                return $patient->zydus_rep_name;
-            })
+                ->editColumn('full_name', function ($patient) {
+                    return $patient->patientEnrollment->full_name;
+                })
 
-            ->editColumn('patient_type', function ($patient) {
-                return $patient->patient_type;
-            })
+                ->editColumn('contact_number', function ($patient) {
+                    return $patient->patientEnrollment->contact_number;
+                })
 
-            ->editColumn('full_name', function ($patient) {
-                return $patient->full_name;
-            })
+                ->editColumn('city', function ($patient) {
+                    return $patient->patientEnrollment->city;
+                })
 
-            ->editColumn('email', function ($patient) {
-                return $patient->email;
-            })
+                ->editColumn('state', function ($patient) {
+                    return $patient->patientEnrollment->state;
+                })
 
-            ->editColumn('contact_number', function ($patient) {
-                return $patient->contact_number;
-            })
+                ->editColumn('status', function ($patient) {
+                    if ($patient->status == 0) {
+                        return '<span class="badge bg-warning">Pending</span>';
+                    } elseif ($patient->status == 1) {
+                        return '<span class="badge bg-warning">Assigned to Nurse</span>';
+                    } elseif ($patient->status == 2) {
+                        return '<span class="badge bg-success">Completed</span>';
+                    }
 
-            ->editColumn('caregiver_contact_number', function ($patient) {
-                return $patient->caregiver_contact_number;
-            })
-
-            ->editColumn('doctor_name', function ($patient) {
-                return $patient->doctor_name;
-            })
-
-            ->editColumn('address', function ($patient) {
-                return $patient->address;
-            })
-
-            ->editColumn('state', function ($patient) {
-                return $patient->state;
-            })      
-
-            ->editColumn('prescription', function ($patient) {
-                if ($patient->prescription) {
-                    return '<a href="' . asset('storage/' . $patient->prescription) . '" target="_blank"> <img src="' . asset('storage/' . $patient->prescription) . '" alt="Prescription" class="img-fluid" style="max-height: 100px;"></a>';
-                }
-                return 'N/A';
-            })
-
-            ->editColumn('govt_id', function ($patient) {
-                if ($patient->govt_id) {
-                    return '<a href="' . asset('storage/' . $patient->govt_id) . '" target="_blank"> <img src="' . asset('storage/' . $patient->govt_id) . '" alt="Govt ID" class="img-fluid" style="max-height: 100px;"></a>';
-                }
-                return 'N/A';
-            })
-
-            ->editColumn('status', function ($patient) {
-                if ($patient->status == 0) {
-                    return '<span class="badge bg-warning">Pending</span>';
-                } elseif ($patient->status == 1) {
-                    return '<span class="badge bg-success">Completed</span>';
-                } elseif ($patient->status == 2) {
-                    return '<span class="badge bg-primary">Assigned to Nurse</span>';
-                }
-
-                return '<span class="badge bg-secondary">Unknown</span>';
-            })
+                    return '<span class="badge bg-secondary">Unknown</span>';
+                })
 
 
-            ->editColumn('created_at', function ($patient) {
-                return $patient->created_at
-                    ? $patient->created_at->format('d-m-Y H:i')
-                    : '-';
-            })
+                ->editColumn('created_at', function ($patient) {
+                    return $patient->created_at
+                        ? $patient->created_at->format('d-m-Y H:i')
+                        : '-';
+                })
 
-             ->addColumn('actions', function ($patient) {
-                return '
-                <div class="d-flex justify-content-end align-items-end">
-                    <div class="btn btn-sm btn-light border rounded-circle" title="View Details">
-                        <a href="' . route('admin.patients.show', $patient->id) . '">
-                            <i class="bi bi-eye text-primary"></i>
-                        </a>
+                ->addColumn('actions', function ($patient) {
+                    return '
+                    <div class="d-flex justify-content-end align-items-end">
+                        <div class="btn btn-sm btn-light border rounded-circle" title="View Details">
+                            <a href="' . route('admin.nurses.show', $patient->id) . '">
+                                <i class="bi bi-eye text-primary"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                ';
-            })
-            ->rawColumns(['prescription', 'govt_id', 'status', 'actions'])
-            ->make(true);
-        }
+                    ';
+                })
+                ->rawColumns(['status', 'actions'])
+                ->make(true);
+            }
 
-        return view('admin.patients.index',compact('totalCount','pendingCount','approvedCount'));
+
+        return view('admin.nurses.index');
     }
 
     /**
@@ -129,9 +97,10 @@ class NurseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(NurseAssigned $nurseAssigned)
+    public function show($id)
     {
-        //
+        $patient = NurseAssigned::with('patientEnrollment')->findOrFail($id);
+        return view('admin.nurses.show', compact('patient'));
     }
 
     /**
@@ -157,4 +126,23 @@ class NurseController extends Controller
     {
         //
     }
+
+   public function updateStatus(Request $request, $id)
+{
+    $nurseAssigned = NurseAssigned::findOrFail($id);
+
+    $status = $request->input('status');
+
+    // Update nurse assignment
+    $nurseAssigned->update([
+        'status' => $status
+    ]);
+
+    // Update patient enrollment
+    $nurseAssigned->patientEnrollment->update([
+        'status' => $status
+    ]);
+
+    return redirect()->route('admin.nurses.index')->with('success', 'Patient Process completed successfully and status updated.');
+}
 }
