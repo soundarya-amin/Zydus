@@ -1,7 +1,7 @@
   <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url('/') }}">
                 <img src="{{ asset('images/Rxpont logo.png') }}" class="w-100" alt="RxPONT Logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

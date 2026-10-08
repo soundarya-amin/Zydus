@@ -2,7 +2,6 @@
 
 @section('content')
 
-<!-- Page Title & Breadcrumb -->
 <div class="page-header-wrapper">
     <div class="page-title-box">
         <div class="page-title-icon">
@@ -12,11 +11,24 @@
     </div>
 </div>
 
-<!-- =====================================================
-     TOP 3 GRADIENT KPI CARDS
-====================================================== -->
+<!-- Flash Alerts -->
+@if(session('success'))
+    <div class="alert alert-success d-flex align-items-center gap-2 rounded-4 py-3 px-4 mb-4 border-0 shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill fs-5 text-success"></i>
+        <div>{{ session('success') }}</div>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger d-flex align-items-center gap-2 rounded-4 py-3 px-4 mb-4 border-0 shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
+        <div>{{ session('error') }}</div>
+    </div>
+@endif
+
+<!-- Dashboard Cards -->
 <div class="row g-4 mb-4">
-    <!-- Card 1: Pink/Coral Gradient -->
+    <!-- Card 1: Total Registrations -->
     <div class="col-md-4">
         <div class="card-stat-gradient card-stat-pink">
             <div class="card-circle-bg"></div>
@@ -28,7 +40,7 @@
         </div>
     </div>
 
-    <!-- Card 2: Blue Gradient -->
+    <!-- Card 2: Catered Patients -->
     <div class="col-md-4">
         <div class="card-stat-gradient card-stat-blue">
             <div class="card-circle-bg"></div>
@@ -40,7 +52,7 @@
         </div>
     </div>
 
-    <!-- Card 3: Teal Gradient -->
+    <!-- Card 3: Pending -->
     <div class="col-md-4">
         <div class="card-stat-gradient card-stat-teal">
             <div class="card-circle-bg"></div>
@@ -53,9 +65,7 @@
     </div>
 </div>
 
-<!-- =====================================================
-     RECENT PATIENT REGISTRATIONS TABLE
-====================================================== -->
+<!-- Recent Patient Registrations -->
 <div class="row">
     <div class="col-12">
         <div class="admin-card">
@@ -79,7 +89,7 @@
                     <tbody>
                         @forelse($recentPatients as $patient)
                             <tr>
-                                <td>{{ $patient->id ?? 'N/A' }}</td>
+                                <td>{{ $patient->patient_code ?? 'N/A' }}</td>
                                 <td>{{ $patient->full_name ?? 'N/A' }}</td>
                                 <td>{{ $patient->state ?? 'N/A' }}</td>
                                 <td>{{ $patient->city ?? 'N/A' }}</td>      

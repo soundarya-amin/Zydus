@@ -1,249 +1,145 @@
-@extends('layouts.admin_dashboard');
+<!-- Edit Patient Modal -->
 
-@section('title', 'Enroll New Patient | RxPONT Admin')
+<div class="modal fade" id="editPatientModal" tabindex="-1" aria-labelledby="editPatientModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" style="background-color: #f8f2f5;">
+			<form method="POST" action="{{ route('admin.patients.update', $patient->ref_id) }}" >
+				@csrf
+				@method('PUT')
 
-@section('content')
+				<div class="modal-header">
+					<h5 class="modal-title" id="editPatientModalLabel">Edit Patient</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
 
-<div class="card p-4 shadow-sm rounded-4 border-0" style="background: #F8FBFC;">
+				<div class="modal-body">
+                    <div class="row g-3">
 
-   <div class="card-header mb-4 d-flex align-items-center justify-content-between" style="background: #F8FBFC; border-bottom: 1px solid #E0E0E0;">
-        <h5 class="card-title fw-bold mb-0" style="color: #0A2233;">
-            <i class="bi bi-person-plus text-primary me-2"></i> Edit Patient Details
-        </h5>
-        <a href="{{ route('admin.patients.index') }}" class="btn btn-outline-secondary rounded-pill px-4 shadow-sm">
-            <i class="bi bi-arrow-left me-1"></i> Back to Enrollments
-        </a>
+                        <div class="col-md-6">
+                            <label for="full_name" class="form-label">Patient Name</label>
+                            <input type="text" class="form-control" id="full_name" name="full_name" value="{{ old('full_name', $patient->full_name) }}" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="patient_code" class="form-label">Patient Code</label>
+                            <input type="text" class="form-control" id="patient_code" name="patient_code" value="{{ old('patient_code', $patient->patient_code) }}" required>
+                        </div>
+                    </div>
+
+					<div class="mb-3">
+						<label for="contact_number" class="form-label">Patient Phone number</label>
+						<input type="tel" class="form-control" id="contact_number" name="contact_number" value="{{ old('contact_number', $patient->contact_number) }}" required>
+					</div>
+
+					<div class="mb-3">
+						<label for="address" class="form-label">Address</label>
+						<textarea class="form-control" id="address" name="address" rows="3">{{ old('address', $patient->address) }}</textarea>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #c3bdbd; border-color: #c3bdbd;">Cancel</button>
+					<button type="submit" class="btn btn-primary" style="background-color: #b66dff; border-color: #b66dff;">Save Changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Upload Document Modal -->
+
+<div class="modal fade" id="uploadDocumentsModal" tabindex="-1"
+     aria-labelledby="uploadDocumentModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: #f8f2f5;">
+
+            <form method="POST"
+                  action="{{ route('admin.patients.updateDocuments', $patient->ref_id) }}"
+                  enctype="multipart/form-data">
+
+                @csrf
+                @method('PUT')
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadDocumentsModalLabel">
+                        Upload Patient Documents
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- Govt ID -->
+                    <div class="mb-4">
+                        <label for="govt_id" class="form-label fw-semibold">
+                            ID Proof
+                        </label>
+
+                        <input type="file"
+                               class="form-control"
+                               id="govt_id"
+                               name="govt_id"
+                               accept=".jpg,.jpeg,.png,.pdf">
+
+                        <div class="form-text">
+                            Accepted formats: JPG, JPEG, PNG, PDF. Max size: 2 MB.
+                        </div>
+
+                        @error('govt_id')
+                            <div class="text-danger small mt-1">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <!-- Prescription -->
+                    <div class="mb-3">
+                        <label for="prescription" class="form-label fw-semibold">
+                            Doctor Prescription
+                        </label>
+
+                        <input type="file"
+                               class="form-control"
+                               id="prescription"
+                               name="prescription"
+                               accept=".jpg,.jpeg,.png,.pdf">
+
+                        <div class="form-text">
+                            Accepted formats: JPG, JPEG, PNG, PDF. Max size: 2 MB.
+                        </div>
+
+                        @error('prescription')
+                            <div class="text-danger small mt-1">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                            style="background-color: #c3bdbd; border-color: #c3bdbd;">
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-primary"
+                            style="background-color: #b66dff; border-color: #b66dff;">
+                        Save Documents
+                    </button>
+
+                </div>
+
+            </form>
+        </div>
     </div>
-    <!-- Feedback Alerts -->
-    @if(session('success'))
-        <div class="alert alert-success d-flex align-items-center gap-2 rounded-4 py-3 px-4 mb-4 border-0 shadow-sm" role="alert">
-            <i class="bi bi-check-circle-fill fs-5 text-success"></i>
-            <div>{{ session('success') }}</div>
-        </div>
-    @endif
-
-    @if($errors->any())
-        <div class="alert alert-danger rounded-4 py-3 px-4 mb-4 border-0 shadow-sm" role="alert">
-            <div class="fw-bold mb-1"><i class="bi bi-exclamation-triangle-fill me-1"></i> Please check the errors below:</div>
-            <ul class="mb-0 ps-3 small">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form action="{{ route('admin.patients.update', $patient->id) }}" method="POST" enctype="multipart/form-data" id="patientForm">
-        @csrf
-        @method('PUT')
-        <!-- Full Name & Email -->
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <div class="form-outline">
-                    <label class="form-label" for="full_name">
-                        Patient Full Name <span class="required-star">*</span>
-                    </label>
-                    <input type="text" 
-                            id="full_name" 
-                            name="full_name" 
-                            class="form-control-custom @error('full_name') is-invalid @enderror" 
-                            placeholder="Enter full name" 
-                            value="{{ $patient->full_name }}" 
-                            required />
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <div class="form-outline">
-                    <label class="form-label" for="email">
-                        Email ID <span class="required-star">*</span>
-                    </label>
-                    <input type="email" 
-                            id="email" 
-                            name="email" 
-                            class="form-control-custom @error('email') is-invalid @enderror" 
-                            placeholder="Enter email address" 
-                            value="{{ $patient->email }}" 
-                            required />
-                </div>
-            </div>
-        </div>
-
-        <!-- Contact Number & Caregiver Number -->
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <div class="form-outline">
-                    <label class="form-label" for="contact_number">
-                        Patient Contact Number <span class="required-star">*</span>
-                    </label>
-                    <div class="custom-input-group">
-                        <span class="custom-input-prefix">+91</span>
-                        <input type="tel" 
-                                id="contact_number" 
-                                name="contact_number" 
-                                class="form-control-custom mobile-number @error('contact_number') is-invalid @enderror" 
-                                placeholder="10-digit number" 
-                                maxlength="10" 
-                                value="{{ $patient->contact_number }}" 
-                                required />
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <div class="form-outline">
-                    <label class="form-label" for="caregiver_contact_number">
-                        Caregiver Contact Number
-                    </label>
-                    <div class="custom-input-group">
-                        <span class="custom-input-prefix">+91</span>
-                        <input type="tel" 
-                                id="caregiver_contact_number" 
-                                name="caregiver_contact_number" 
-                                class="form-control-custom mobile-number @error('caregiver_contact_number') is-invalid @enderror" 
-                                placeholder="10-digit number" 
-                                maxlength="10" 
-                                value="{{ $patient->caregiver_contact_number }}" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Gender Selection -->
-        <div class="mb-3">
-            <label class="form-label mb-2">
-                Gender <span class="required-star">*</span>
-            </label>
-            <div class="d-flex align-items-center flex-wrap gap-2">
-                <label class="gender-radio-item" for="femaleGender">
-                    <input type="radio" name="gender" id="femaleGender" value="female" {{ old('gender') == 'female' ? 'checked' : '' }} required />
-                    <span>Female</span>
-                </label>
-
-                <label class="gender-radio-item" for="maleGender">
-                    <input type="radio" name="gender" id="maleGender" value="male" {{ old('gender', 'male') == 'male' ? 'checked' : '' }} />
-                    <span>Male</span>
-                </label>
-
-                <label class="gender-radio-item" for="otherGender">
-                    <input type="radio" name="gender" id="otherGender" value="other" {{ old('gender') == 'other' ? 'checked' : '' }} />
-                    <span>Other</span>
-                </label>
-            </div>
-        </div>
-
-        <!-- Date of Birth & Nationality -->
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <div class="form-outline">
-                    <label class="form-label" for="date_of_birth">
-                        Date of Birth <span class="required-star">*</span>
-                    </label>
-                    <input type="date" 
-                            id="date_of_birth" 
-                            name="date_of_birth" 
-                            class="form-control-custom @error('date_of_birth') is-invalid @enderror" 
-                            value="{{ $patient->date_of_birth }}" 
-                            required />
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <div class="form-outline">
-                    <label class="form-label" for="nationality">
-                        Nationality <span class="required-star">*</span>
-                    </label>
-                    <input type="text" 
-                            id="nationality" 
-                            name="nationality" 
-                            class="form-control-custom @error('nationality') is-invalid @enderror" 
-                            placeholder="e.g. Indian" 
-                            value="{{ $patient->nationality }}" 
-                            required />
-                </div>
-            </div>
-        </div>
-
-        <!-- Permanent Address -->
-        <div class="form-outline mb-3">
-            <label class="form-label" for="permanent_address">
-                Permanent Address <span class="required-star">*</span>
-            </label>
-            <textarea id="permanent_address" 
-                        name="permanent_address" 
-                        class="form-control-custom @error('permanent_address') is-invalid @enderror" 
-                        rows="2" 
-                        placeholder="Enter full permanent address" 
-                        required>{{ $patient->permanent_address }}</textarea>
-        </div>
-
-        <!-- Delivery Address -->
-        <div class="form-outline mb-3">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-                <label class="form-label mb-0" for="delivery_address">
-                    Medicine Delivery Address
-                </label>
-                <div class="form-check mb-0">
-                    <input class="form-check-input" type="checkbox" id="sameAddressToggle" style="accent-color: #F05C38; cursor: pointer;" />
-                    <label class="form-check-label small text-muted" for="sameAddressToggle" style="cursor: pointer;">
-                        Same as permanent address
-                    </label>
-                </div>
-            </div>
-            <textarea id="delivery_address" 
-                        name="delivery_address" 
-                        class="form-control-custom @error('delivery_address') is-invalid @enderror" 
-                        rows="2" 
-                        placeholder="Enter delivery address (if different)">{{ $patient->delivery_address }}</textarea>
-        </div>
-
-        <!-- File Uploads: Govt ID & Prescription -->
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <div class="form-outline">
-                    <label class="form-label">
-                        Govt ID Proof <span class="required-star">*</span>
-                    </label>
-                    <div class="file-input-wrapper">
-                        <i class="bi bi-file-earmark-person fs-4 text-secondary d-block mb-1"></i>
-                        <span class="small fw-bold text-dark d-block" id="govtIdText">Upload Govt ID (Aadhaar/Voter/Passport)</span>
-                        <small class="text-muted" style="font-size: 0.75rem;">PDF, JPG, PNG (Max 2MB)</small>
-                        <input type="file" 
-                                name="govt_id" 
-                                id="govt_id" 
-                                accept=".pdf,.jpg,.jpeg,.png" 
-                                required 
-                                onchange="handleFileChange(this, 'govtIdText')" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <div class="form-outline">
-                    <label class="form-label">
-                        Doctor Prescription (Optional)
-                    </label>
-                    <div class="file-input-wrapper">
-                        <i class="bi bi-file-medical fs-4 text-secondary d-block mb-1"></i>
-                        <span class="small fw-bold text-dark d-block" id="prescText">Upload Prescription</span>
-                        <small class="text-muted" style="font-size: 0.75rem;">PDF, JPG, PNG (Max 2MB)</small>
-                        <input type="file" 
-                                name="prescription" 
-                                id="prescription" 
-                                accept=".pdf,.jpg,.jpeg,.png" 
-                                onchange="handleFileChange(this, 'prescText')" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-footer">
-             <button type="submit" class="btn btn-success rounded-pill px-4 shadow-sm" style="background: #F05C38; border-color: #F05C38;">
-                <span>Update Patient</span>
-            </button>
-        </div>
-
-    </form>
-</div>            
-
-@endsection
+</div>

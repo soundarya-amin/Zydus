@@ -34,21 +34,21 @@ Route::middleware(['auth', 'prevent-back-history'])->group(function () {
     Route::get('/admin/patients', [PatientController::class, 'index'])->name('admin.patients.index');
     Route::get('/admin/patients/create', [PatientController::class, 'create'])->name('admin.patients.create');
     Route::post('/admin/patients', [PatientController::class, 'store'])->name('admin.patients.store');
-    Route::get('/admin/patients/{id}', [PatientController::class, 'show'])->name('admin.patients.show');
-    Route::get('/admin/patients/{id}/edit', [PatientController::class, 'edit'])->name('admin.patients.edit');
-    Route::put('/admin/patients/{id}', [PatientController::class, 'update'])->name('admin.patients.update');
-    Route::delete('/admin/patients/{id}', [PatientController::class, 'destroy'])->name('admin.patients.destroy');
-    Route::put('/admin/patients/status/{id}', [PatientController::class, 'updateStatus'])->name('admin.patients.updateStatus');
-    // Route::get('/admin/patients/completed', [PatientController::class, 'completedPatients'])->name('admin.patients.completed');
+    Route::get('/admin/patients/{ref_id}', [PatientController::class, 'show'])->name('admin.patients.show');
+    Route::get('/admin/patients/{ref_id}/edit', [PatientController::class, 'edit'])->name('admin.patients.edit');
+    Route::put('/admin/patients/{ref_id}', [PatientController::class, 'update'])->name('admin.patients.update');
+    Route::delete('/admin/patients/{ref_id}', [PatientController::class, 'destroy'])->name('admin.patients.destroy');
+    Route::put('/admin/patients/status/{ref_id}', [PatientController::class, 'updateStatus'])->name('admin.patients.updateStatus');
+    Route::put('/admin/patients/documents/{ref_id}', [PatientController::class, 'updateDocuments'])->name('admin.patients.updateDocuments');
 
     // NurseController Routes
     Route::get('/admin/nurses', [NurseController::class, 'index'])->name('admin.nurses.index'); 
-    Route::get('/admin/nurses/{id}', [NurseController::class, 'show'])->name('admin.nurses.show');
+    Route::get('/admin/nurses/{ref_id}', [NurseController::class, 'show'])->name('admin.nurses.show');
     Route::put('/admin/nurses/status/{id}', [NurseController::class, 'updateStatus'])->name('admin.nurses.updateStatus');
 
     // Completed Patient Routes
-    Route::get('/admin/completedPatients', [CompletedPatientController::class, 'index'])->name('admin.patients.completed');
-
+    Route::get('/admin/completed-patients', [CompletedPatientController::class, 'index'])->name('admin.patients.completed');
+    Route::get('/admin/completed-patients/{ref_id}', [CompletedPatientController::class, 'show'])->name('admin.completed.show');
 
 });
 

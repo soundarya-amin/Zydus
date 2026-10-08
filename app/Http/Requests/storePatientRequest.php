@@ -22,19 +22,19 @@ class storePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'zydus_rep_name' => 'nullable|string|max:255',
-            'patient_type' => 'nullable|string|in:new_registration,old_registration',
+            'zydus_rep_name' => 'required|string|max:255',
+            'patient_type' => 'nullable|boolean',
             'full_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:patient_enrollments,email',
+            'email' => 'nullable|email',
             'contact_number' => 'required|string|max:15|unique:patient_enrollments,contact_number',
             'caregiver_contact_number' => 'nullable|string|max:15',
             'doctor_name' => 'nullable|string|max:255',
-            'address' => 'required|string',
-            'state' => 'nullable|string|max:100',
-            'city'  => 'nullable|string|max:100',
-            'pincode' => 'nullable|string|max:6',
-            'prescription' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
-            'govt_id' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048|unique:patient_enrollments,govt_id',
+            'address' => 'nullable|string',
+            'state' => 'required|string|max:100',
+            'city'  => 'required|string|max:100',
+            'pincode' => 'required|string|max:6',
+            'prescription' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'govt_id' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
             'status' => 'nullable|integer',     
         ];
     }

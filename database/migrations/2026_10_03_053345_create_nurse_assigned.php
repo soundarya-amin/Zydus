@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('nurse_assigned', function (Blueprint $table) {
             $table->id();
-            $table->string('nurse_code');
             $table->unsignedBigInteger('patient_id');
+            $table->dateTime('date_assigned')->nullable();
+            $table->string('updated_by')->nullable();
             $table->integer('status')->default(0);
             $table->foreign('patient_id')->references('id')->on('patient_enrollments')->cascadeOnDelete('cascade');
             $table->timestamps();

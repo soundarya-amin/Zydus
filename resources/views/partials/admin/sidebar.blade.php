@@ -5,6 +5,12 @@
             <h6>{{ auth()->user()->name ?? '' }}</h6>
             <span></span>
         </div>
+       <div class="d-flex align-items-end gap-3 w-100">
+            <button class="sidebar-toggle-btn ms-auto" id="sidebarToggle" type="button" title="Toggle Sidebar">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+
     </div>
 
     <!-- Sidebar Navigation -->

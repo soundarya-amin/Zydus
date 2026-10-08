@@ -14,7 +14,6 @@
         </div>
     </div>
 
-    {{-- ================= PATIENT + STATUS ================= --}}
     <div class="row g-4 mb-4">
 
         {{-- Patient Profile --}}
@@ -24,10 +23,22 @@
 
                 <div class="card-body p-4">
 
-                    <h5 class="fw-semibold mb-4">
-                        Patient Profile
-                    </h5>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-semibold mb-0">
+                            Patient Profile
 
+                            @if($patient->patientEnrollment->patient_type)
+                                <span class="badge bg-success ms-2" style="font-size: 12px; padding: 3px 6px;">
+                                    New Patient
+                                </span>
+
+                            @else
+                                <span class="badge bg-warning ms-2" style="font-size: 12px; padding: 3px 6px;">
+                                    Old Patient
+                                </span>
+                            @endif
+                        </h5>
+                    </div>
                     <div class="row align-items-center">
 
                         {{-- Patient Icon --}}
@@ -82,22 +93,17 @@
                             <div>
                                 <strong>Submit To Nurse on:</strong>
                                 <span class="ms-2">
-                                    {{ $patient->updated_at
-                                        ? \Carbon\Carbon::parse($patient->updated_at)->format('Y-m-d')
+                                    {{ $patient->created_at
+                                        ? \Carbon\Carbon::parse($patient->created_at)->format('d-m-Y')
                                         : 'N/A'
                                     }}
                                 </span>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
         </div>
-
 
         {{-- Status --}}
         <div class="col-lg-4">
@@ -111,7 +117,6 @@
                     </h5>
 
                     <form action="{{ route('admin.nurses.updateStatus', $patient->id) }}" method="POST">
-
 
                         @csrf
                         @method('PUT')
@@ -135,21 +140,13 @@
                                 <i class="mdi mdi-check-circle-outline me-1"></i>
                                 Completed
                             </button>
-
                         </div>
-
                     </form>
-
                 </div>
             </div>
-
         </div>
-
     </div>
 
-
-
-    {{-- ================= ADDRESS + CAREGIVER ================= --}}
     <div class="row g-4 mb-4">
 
         {{-- Address --}}
@@ -254,9 +251,6 @@
 
     </div>
 
-
-
-    {{-- ================= DOCUMENTS ================= --}}
     <div class="card shadow-sm border-0 rounded-3 mb-4">
 
         <div class="card-body p-4">
@@ -308,28 +302,19 @@
                         <a href="{{ asset('storage/' . $patient->patientEnrollment->prescription) }}"
                            target="_blank"
                            class="btn btn-outline-info btn-sm">
-
                             <i class="mdi mdi-open-in-new me-1"></i>
                             Open Prescription
-
                         </a>
-
                     @else
 
                         <span class="text-muted">
                             Not uploaded
                         </span>
-
                     @endif
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 @endsection

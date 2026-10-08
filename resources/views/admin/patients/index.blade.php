@@ -22,6 +22,13 @@
     </div>
 @endif
 
+@if(session('error'))
+    <div class="alert alert-danger d-flex align-items-center gap-2 rounded-4 py-3 px-4 mb-4 border-0 shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
+        <div>{{ session('error') }}</div>
+    </div>
+@endif
+
 <!-- Main Table Card -->
 <div class="admin-card">
 
@@ -36,6 +43,7 @@
                     <th>Contact Number</th>
                     <th>City</th>
                     <th>State</th>
+                    <th>Patient Type</th>
                     <th>Enrolled Date</th>
                     <th>Status</th>
                     <th class="text-end">Actions</th>
@@ -63,6 +71,7 @@
                 { data: 'contact_number', name: 'contact_number' },
                 { data: 'city', name: 'city' },
                 { data: 'state', name: 'state' },
+                { data: 'patient_type', name: 'patient_type' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'status', name: 'status' },
                 { data: 'actions', name: 'actions', orderable: false, searchable: false }

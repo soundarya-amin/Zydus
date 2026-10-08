@@ -11,9 +11,9 @@
                 <div class="card card-registration my-4">
                         <!-- Close Button -->
                         <div class="registration-close">
-                            <button type="button" onclick="window.history.back()" aria-label="Close">
-                                &times;
-                            </button>
+                           <button type="button" onclick="window.location.href='/'" aria-label="Close">
+                            &times;
+                        </button>
                         </div>
                     <div class="row g-0">
                         
@@ -81,8 +81,8 @@
                                                         id="patient_type" 
                                                         required>
                                                     <option value="" disabled selected>Select Patient Type</option>
-                                                    <option value="new_registration">New Registration</option>
-                                                    <option value="old_registration">Old Registration</option>
+                                                    <option value="1">New Registration</option>
+                                                    <option value="0">Old Registration</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -110,7 +110,7 @@
                                         <div class="col-md-12 mb-3">
                                             <div class="form-outline">
                                                 <label class="form-label" for="email">
-                                                    Patient Email ID <span class="required-star">*</span>
+                                                    Patient Email ID 
                                                 </label>
                                                 <input type="email" 
                                                        id="email" 
@@ -118,7 +118,7 @@
                                                        class="form-control-custom @error('email') is-invalid @enderror" 
                                                        placeholder="Enter email address" 
                                                        value="{{ old('email') }}" 
-                                                       required />
+                                                       />
                                             </div>
                                         </div>
                                     </div>
@@ -169,7 +169,7 @@
                                         <div class="col-md-12 mb-3">
                                             <div class="form-outline">
                                                 <label class="form-label" for="doctor_name">
-                                                    Doctor Name <span class="required-star">*</span>
+                                                    Doctor Name
                                                 </label>
                                                 <input type="text" 
                                                        id="doctor_name" 
@@ -177,7 +177,7 @@
                                                        class="form-control-custom @error('doctor_name') is-invalid @enderror" 
                                                        placeholder="Enter doctor's name" 
                                                        value="{{ old('doctor_name') }}" 
-                                                       required />
+                                                       />
                                             </div>
                                         </div>
                                     </div>
@@ -185,27 +185,29 @@
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <div class="form-outline">
-                                                <select class="form-select form-select-lg mb-3 @error('state') is-invalid @enderror" 
-                                                        name="state" 
-                                                        id="state" 
+                                                <select class="form-select form-select-lg mb-3 @error('state') is-invalid @enderror"
+                                                        name="state"
+                                                        id="state"
                                                         required>
-                                                    <option value="" disabled selected>Select State</option>
-                                                    <option value="new_registration" {{ old('state') == 'new_registration' ? 'selected' : '' }}>Andhra Pradesh</option>
-                                                    <option value="old_registration" {{ old('state') == 'old_registration' ? 'selected' : '' }}>Arunachal Pradesh</option>
-                                                    <option value="new_registration" {{ old('state') == 'new_registration' ? 'selected' : '' }}>Assam</option>
-                                                    <option value="old_registration" {{ old('state') == 'old_registration' ? 'selected' : '' }}>Bihar</option>
-                                                    <option value="new_registration" {{ old('state') == 'new_registration' ? 'selected' : '' }}>Chhattisgarh</option>
-                                                    <option value="old_registration" {{ old('state') == 'old_registration' ? 'selected' : '' }}>Goa</option>
-                                                    <option value="new_registration" {{ old('state') == 'new_registration' ? 'selected' : '' }}>Gujarat</option>
-                                                    <option value="old_registration" {{ old('state') == 'old_registration' ? 'selected' : '' }}>Haryana</option>
-                                                    <option value="new_registration" {{ old('state') == 'new_registration' ? 'selected' : '' }}>Himachal Pradesh</option>
-                                                    <option value="old_registration" {{ old('state') == 'old_registration' ? 'selected' : '' }}>Jharkhand</option>
-                                                    <option value="Karnataka" {{ old('state') == 'Karnataka' ? 'selected' : '' }}>Karnataka</option>
-                                                    <option value="old_registration" {{ old('state') == 'old_registration' ? 'selected' : '' }}>Kerala</option>
+                                                    
+                                                    <option value="">Select State</option>
+
+                                                    @foreach($states as $state)
+                                                        <option value="{{ $state }}"
+                                                            {{ old('state') == $state ? 'selected' : '' }}>
+                                                            {{ $state }}
+                                                        </option>
+                                                    @endforeach
+
                                                 </select>
+
+                                                @error('state')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
+
 
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
@@ -218,8 +220,7 @@
                                                        name="city" 
                                                        class="form-control-custom @error('city') is-invalid @enderror" 
                                                        placeholder="Enter city" 
-                                                       value="{{ old('city') }}" 
-                                                       required />
+                                                       value="{{ old('city') }}" required />
                                             </div>
                                         </div>
                                     </div>
@@ -233,6 +234,7 @@
                                                 <input type="text" 
                                                        id="pincode" 
                                                        name="pincode" 
+                                                       maxlength="6"
                                                        class="form-control-custom @error('pincode') is-invalid @enderror" 
                                                        placeholder="Enter pincode" 
                                                        value="{{ old('pincode') }}" 
@@ -244,14 +246,13 @@
                                     <!-- Address -->
                                     <div class="form-outline mb-3">
                                         <label class="form-label" for="address">
-                                            Address <span class="required-star">*</span>
+                                            Address 
                                         </label>
                                         <textarea id="address" 
                                                   name="address" 
                                                   class="form-control-custom @error('address') is-invalid @enderror" 
                                                   rows="2" 
-                                                  placeholder="Enter full address" 
-                                                  required>{{ old('address') }}</textarea>
+                                                  placeholder="Enter full address">{{ old('address') }}</textarea>
                                     </div>
 
                                     <!-- File Uploads: Govt ID & Prescription -->
@@ -259,17 +260,16 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-outline">
                                                 <label class="form-label">
-                                                    Govt ID Proof
+                                                    ID Proof
                                                 </label>
                                                 <div class="file-input-wrapper">
                                                     <i class="bi bi-file-earmark-person fs-4 text-secondary d-block mb-1"></i>
-                                                    <span class="small fw-bold text-dark d-block" id="govtIdText">Upload Govt ID (Aadhaar/Voter/Passport)</span>
+                                                    <span class="small fw-bold text-dark d-block" id="govtIdText">Upload ID Proof</span>
                                                     <small class="text-muted" style="font-size: 0.75rem;">PDF, JPG, PNG (Max 2MB)</small>
                                                     <input type="file" 
                                                            name="govt_id" 
                                                            id="govt_id" 
                                                            accept=".pdf,.jpg,.jpeg,.png" 
-                                                           required 
                                                            onchange="handleFileChange(this, 'govtIdText')" />
                                                 </div>
                                             </div>

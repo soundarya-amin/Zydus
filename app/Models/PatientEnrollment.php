@@ -14,6 +14,7 @@ class PatientEnrollment extends Model
 
     protected $fillable = [
         'patient_code',
+        'ref_id',
         'zydus_rep_name',
         'patient_type',
         'full_name',
@@ -32,6 +33,24 @@ class PatientEnrollment extends Model
 
     public function nurseAssigned()
     {
-        return $this->hasMany(NurseAssigned::class, 'patient_id');
+        return $this->hasOne(NurseAssigned::class, 'patient_id');
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (PatientEnrollment $patient) {
+            $patient->ref_id = self::generateRefId();
+            $patient->patient_code = self::generatePatientCode();
+        });
+    }
+
+    private static function generateRefId(): string
+    {
+        return bin2hex(random_bytes(16));
+    }
+
+    private static function generatePatientCode(): string
+    {
+        return 'ZYD-' . str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);
     }
 }

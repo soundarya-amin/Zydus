@@ -5,46 +5,50 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\storePatientRequest;
 use App\Models\PatientEnrollment;
+use App\Models\States;
 
 class PatientEnrollmentController extends Controller
 {
     public function register()
     {
-        return view('patient_enroll_form');
+        try{
+            $states = States::pluck('state');
+            return view('patient_enroll_form', compact('states'));
+        } catch(\Exception $e){
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     public function store(storePatientRequest $request)
     {
-        $validatedData = $request->validated();
+        try{
+            $validatedData = $request->validated();
 
-        // Handle govt_id upload
-        if ($request->hasFile('govt_id')) {
-            $govtIdFile = $request->file('govt_id');
-            $govtIdPath = $govtIdFile->store('patient_documents/govt_ids', 'public');
-            $validatedData['govt_id'] = $govtIdPath;
+            // Handle govt_id upload
+            if ($request->hasFile('govt_id')) {
+                $govtIdFile = $request->file('govt_id');
+                $govtIdPath = $govtIdFile->store('patient_documents/govt_ids', 'public');
+                $validatedData['govt_id'] = $govtIdPath;
+            }
+
+            // Handle prescription upload
+            if ($request->hasFile('prescription')) {
+                $prescriptionFile = $request->file('prescription');
+                $prescriptionPath = $prescriptionFile->store('patient_documents/prescriptions', 'public');
+                $validatedData['prescription'] = $prescriptionPath;
+            }
+
+            $validatedData['status'] = $validatedData['status'] ?? 0;
+
+            // Create the patient enrollment record
+            PatientEnrollment::create($validatedData);
+
+            return redirect()->back()->with('success', 'Patient enrollment details have been submitted successfully! Our care coordinator will contact you shortly.');
+
         }
-
-        // Handle prescription upload
-        if ($request->hasFile('prescription')) {
-            $prescriptionFile = $request->file('prescription');
-            $prescriptionPath = $prescriptionFile->store('patient_documents/prescriptions', 'public');
-            $validatedData['prescription'] = $prescriptionPath;
+        catch (\Exception $e) {
+            // Handle the exception, log it, or return an error response
+            return redirect()->back()->with('error', 'Something went wrong!');
         }
-
-        $validatedData['status'] = $validatedData['status'] ?? 0;
-        $validatedData['patient_code'] = $this->generatePatientCode();
-
-        // Create the patient enrollment record
-        PatientEnrollment::create($validatedData);
-
-        return redirect()->back()->with('success', 'Patient enrollment details have been submitted successfully! Our care coordinator will contact you shortly.');
     }
-
-    private function generatePatientCode(): string
-    {
-        return 'ZYD-' . str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-    }
-
-
-
 }

@@ -12,8 +12,9 @@ class NurseAssigned extends Model
     protected $table = 'nurse_assigned';
 
     protected $fillable = [
-        'nurse_code',
         'patient_id',
+        'date_assigned',
+        'updated_by',
         'status',
     ];
 

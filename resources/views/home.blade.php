@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Diasens Connect | Patient Support Program')
+@section('title', 'Zydus')
 
 @section('content')
 
@@ -126,7 +126,6 @@
         </div>
     </section>
 
-    <!-- HOW IT WORKS (DARK SECTION) -->
     <section id="steps" class=" mb-2">
         <div class="container text-center">
             <div class="row">
@@ -222,7 +221,7 @@
 
                     </p>
                     <h6>
-                        <i class="fa-solid fa-circle-dot"></i>   Installing CGM and educating about the device
+                        <i class="fa-solid fa-circle-dot"></i> Installing the CGM and educating about the device
 
                     </h6>
                     <p>

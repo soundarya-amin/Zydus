@@ -7,9 +7,6 @@
 
     <div class="navbar-menu-wrapper">
         <div class="d-flex align-items-center gap-3">
-            <button class="sidebar-toggle-btn" id="sidebarToggle" type="button" title="Toggle Sidebar">
-                <i class="bi bi-list"></i>
-            </button>
         </div>
 
         <ul class="navbar-nav-right">

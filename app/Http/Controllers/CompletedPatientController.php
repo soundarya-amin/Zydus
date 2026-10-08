@@ -10,7 +10,6 @@ class CompletedPatientController extends Controller
 {
    public function index(Request $request)
     {
-
         if ($request->ajax()) {
             $patients = PatientEnrollment::where('status', 2)->latest()->get();
 
@@ -19,7 +18,6 @@ class CompletedPatientController extends Controller
                 ->editColumn('patient_code', function ($patient) {
                     return $patient->patient_code;
                 })
-              
                 ->editColumn('full_name', function ($patient) {
                     return $patient->full_name;
                 })
@@ -32,6 +30,11 @@ class CompletedPatientController extends Controller
                 ->editColumn('state', function ($patient) {
                     return $patient->state;
                 })
+                ->editColumn('updated_at', function ($patient) {
+                    return $patient->nurseAssigned->updated_at
+                        ? $patient->nurseAssigned->updated_at->format('d-m-Y')
+                        : '-';
+                })
                 ->editColumn('status', function ($patient) {
                     if ($patient->status == 0) {
                         return '<span class="badge bg-warning">Pending</span>';
@@ -43,16 +46,12 @@ class CompletedPatientController extends Controller
 
                     return '<span class="badge bg-secondary">Unknown</span>';
                 })
-                ->editColumn('created_at', function ($patient) {
-                    return $patient->created_at
-                        ? $patient->created_at->format('d-m-Y H:i')
-                        : '-';
-                })
+               
                 ->addColumn('actions', function ($patient) {
                     return '
                         <div class="d-flex justify-content-end align-items-end">
                             <div class="btn btn-sm btn-light border rounded-circle" title="View Details">
-                                <a href="' . route('admin.patients.show', $patient->id) . '">
+                                <a href="' . route('admin.completed.show', $patient->ref_id) . '">
                                     <i class="bi bi-eye text-primary"></i>
                                 </a>
                             </div>
@@ -63,5 +62,13 @@ class CompletedPatientController extends Controller
               ->make(true);     
         } 
         return view('admin.completed.index');  
-    }             
+    } 
+    
+    public function show($ref_id)
+    {
+       $patient = PatientEnrollment::with('nurseAssigned')->where('ref_id', $ref_id)->firstOrFail();
+        return view('admin.completed.show', compact('patient'));
+    }
+
 }
+
