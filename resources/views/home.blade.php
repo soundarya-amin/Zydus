@@ -1,930 +1,358 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@section('title', 'Zydus')
 
-    <title>Diasens Connect | Patient Support Program</title>
+@section('content')
 
-    <!-- Bootstrap 5 CSS -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/home.css">
-</head>
-
-<body>
-
-    <!-- =====================================================
-         TOP CONTACT BAR
-    ====================================================== -->
-    <div class="top-bar">
+    <!-- HERO SECTION -->
+    <section class="hero-section">
         <div class="container">
-            <div class="d-flex justify-content-end align-items-center gap-4 py-2">
-
-                <a href="tel:+916827421020">
-                    <i class="bi bi-telephone me-1"></i>
-                    +91 6827 421 020
-                </a>
-
-                <a href="https://wa.me/916827421020" target="_blank">
-                    <i class="bi bi-whatsapp me-1"></i>
-                    WhatsApp
-                </a>
-
+            <div class="row align-items-center gy-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <span class="badge-hero"><i class="bi bi-shield-check me-1"></i> CGM Enrollment Program</span>
+                    <h1 class="hero-title mb-3">Getting your CGM connected, one step at a time.</h1>
+                    <p class="text-muted lead mb-4 fs-6">Diasens Connect is how Rx Pont turns your prescription into a working, continuous glucose monitor — sensor, app, and clinician connection  included. Most people are up and running after enrolling.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="{{ route('patient.register.form') }}" class="btn btn-coral">Start Enrollment</a>
+                        <a href="#" class="btn btn-outline-custom">See How It Works</a>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="hero-img-wrapper text-center">
+                        <div class="floating-badge fb-1">
+                            <span class="bg-success rounded-circle p-1"></span> Live Consultation
+                        </div>
+                        <div class="floating-badge fb-2">
+                            <i class="bi bi-heart-pulse-fill text-danger"></i> Patient Care Verified
+                        </div>
+                        <img src="{{ asset('images/heroDia.png') }}" alt="Doctor" class="img-fluid rounded-4 shadow">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-
-    <!-- =====================================================
-         NAVBAR
-    ====================================================== -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-
+    <!-- TRUST LOGOS -->
+   <section class="py-4 border-top border-bottom bg-light">
         <div class="container">
-
-            <a class="navbar-brand brand-logo" href="#">
-                Diasens <span>Connect</span>
-            </a>
-
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#mainNavbar"
-                aria-controls="mainNavbar"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-
-                <span class="navbar-toggler-icon"></span>
-
-            </button>
-
-            <div class="collapse navbar-collapse" id="mainNavbar">
-
-                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">
-                            About
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#pontassist">
-                            PONTAssist™
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#support">
-                            Our Support
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#enroll" class="btn btn-primary px-4">
-                            Enroll Patient
-                        </a>
-                    </li>
-
-                </ul>
-
+            <div class="d-flex justify-content-center mb-4">
+                <img 
+                    src="{{ asset('images/logodiasens.png') }}" 
+                    alt="Diasens Logo"
+                    class="img-fluid"
+                    style="max-height: 140px; width: auto;"
+                >
             </div>
-
-        </div>
-
-    </nav>
-
-
-    <!-- =====================================================
-         HERO SECTION
-    ====================================================== -->
-    <section class="hero">
-
-        <div class="container">
 
             <div class="row align-items-center">
 
-                <div class="col-lg-8">
+                <div class="col-md-6 d-flex justify-content-center mb-4 mb-md-0">
+                    <img 
+                        src="{{ asset('images/about.png') }}" 
+                        alt="About Diasens"
+                        class="img-fluid"
+                        style="max-height: 250px; width: auto;"
+                    >
+                </div>
 
-                    <span class="hero-badge">
-                        Welcome to the Patient Support Program
-                    </span>
-
-                    <h1 class="mb-4">
-                        Diasens Connect
-                    </h1>
-
-                    <p class="mb-4">
-                        Diasens Connect is how RxPONT turns your prescription
-                        into a supported continuous glucose monitoring journey.
-                    </p>
-
-                    <p class="mb-4">
-                        Get guidance, assistance and support to help you
-                        begin your prescribed CGM therapy with confidence.
-                    </p>
-
-                    <a href="#enroll" class="btn btn-primary-custom">
-                        Enroll Patient
-                        <i class="bi bi-arrow-right ms-2"></i>
-                    </a>
-
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="w-100">
+                        <h1 class="text-start mb-0">
+                            Your glucose has something to say...
+                            <br><br>
+                            <span style="color:#5aa5a1;">Diasens</span>
+                            help translate it.
+                        </h1>
+                    </div>
                 </div>
 
             </div>
-
         </div>
-
     </section>
 
 
-    <!-- =====================================================
-         ABOUT RXPONT
-    ====================================================== -->
-    <section id="about" class="section-padding">
+    <!-- FEATURES SECTION -->
+    <section id="features" class="py-5">
+        <div class="container py-4">
+            <div class="text-center max-w-xl mx-auto mb-5">
+                <p class="text-muted">THE BRIDGE</p>
 
-        <div class="container">
-
-            <div class="row justify-content-center text-center mb-5">
-
-                <div class="col-lg-8">
-
-                    <h2 class="section-title">
-                        About RxPONT
-                    </h2>
-
-                    <p class="section-subtitle">
-                        Your trusted partner in therapy initiation and
-                        patient support.
-                    </p>
-
-                </div>
-
+                <h2 class="fw-bold">From prescription to sensor, in four steps</h2>
             </div>
-
-
             <div class="row g-4">
-
-                <div class="col-lg-6">
-
-                    <div class="about-box">
-
-                        <div class="icon-box">
-                            <i class="bi bi-heart-pulse"></i>
-                        </div>
-
-                        <h3 class="mb-3">
-                            Patient-Centric Support
-                        </h3>
-
-                        <p class="section-subtitle mb-0">
-                            RxPONT is India’s leading therapy initiation
-                            and patient support organization. Our goal is
-                            to help patients access important breakthrough
-                            medicines prescribed by their doctors with ease.
-                        </p>
-
+                <div class="col-md-3">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">1</div>
+                        <h5 class="fw-bold mb-2">Prescription received</h5>
+                        <p class="text-muted small mb-0">Rx Pont receives your CGM prescription directly from you and opens your Diasens Connect file.</p>
                     </div>
-
                 </div>
-
-
-                <div class="col-lg-6">
-
-                    <div class="about-box">
-
-                        <div class="icon-box">
-                            <i class="bi bi-people"></i>
-                        </div>
-
-                        <h3 class="mb-3">
-                            Supporting Your Journey
-                        </h3>
-
-                        <p class="section-subtitle mb-0">
-                            At RxPONT, we provide guidance, treatment
-                            assistance and continuous support for your
-                            medication needs. Our mission is to make your
-                            treatment journey smooth, supportive and
-                            worry-free.
-                        </p>
-
+                <div class="col-md-3">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">2</div>
+                        <h5 class="fw-bold mb-2">Enroll</h5>
+                        <p class="text-muted small mb-0">You confirm your details and information online or by phone — usually under ten minutes. </p>
                     </div>
-
                 </div>
-
+                <div class="col-md-3">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">3</div>
+                        <h5 class="fw-bold mb-2">Sensor installation</h5>
+                        <p class="text-muted small mb-0">Our CGM specialist on field will visit you and assist, walking you through placement and pairing to the app step by step.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">4</div>
+                        <h5 class="fw-bold mb-2">Ongoing connection</h5>
+                        <p class="text-muted small mb-0">Readings sync automatically to your clinic. Diasens Connect support stays reachable for sensor changes and questions.</p>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-credit-card"></i></div>
+                        <h5 class="fw-bold mb-2">Payments</h5>
+                        <p class="text-muted small mb-0">Integrated billing, card processing, and automatic insurance claim generation.</p>
+                    </div>
+                </div> -->
+                <!-- <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-shield-lock"></i></div>
+                        <h5 class="fw-bold mb-2">Secure & Compliant</h5>
+                        <p class="text-muted small mb-0">HIPAA and GDPR compliant infrastructure ensuring total privacy.</p>
+                    </div>
+                </div> -->
             </div>
-
         </div>
-
     </section>
 
-
-    <!-- =====================================================
-         PONTASSIST SECTION
-    ====================================================== -->
-    <section id="pontassist" class="section-padding bg-light">
-
-        <div class="container">
-
-            <div class="row justify-content-center text-center mb-5">
-
-                <div class="col-lg-9">
-
-                    <span class="section-label">
-                        RxPONT Patient Support
-                    </span>
-
-                    <h2 class="section-title mt-2">
-                        What is PONTAssist™?
-                    </h2>
-
-                    <p class="section-subtitle">
-                        PONTAssist™ is a therapy initiation platform
-                        developed by RxPONT. It is designed to help
-                        patients begin and continue their prescribed
-                        treatment without unnecessary delays.
+    <section id="steps" class=" mb-2">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-6 align-items-center justify-content-center gy-4" data-aos="zoom-in" data-aos-delay="100">
+                    <!-- <div class=''> -->
+                        <img src="{{ asset('images\Rxpont logo.png') }}" alt="" srcset="" class="img-fluid mx-auto d-block">
+                    <!-- </div> -->
+                </div>
+                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div>
+                        <h1 class='text-center rxpont1 '>RxP<span class='rxpont2'>O</span>NT</h1>
+                    </div>
+                    <p class='text-start'>
+                        Is India’s leading therapy initiation and patient support organization. Our goal is to help patients like you access important breakthrough medicines prescribed by your doctor with ease.
                     </p>
+                    <p class='text-start'>
+                        At RxPONT, we provide guidance, treatment assistance, and continuous support for your medication needs. Our mission is to make your treatment journey smooth, supportive, and worry-free.
 
+                    </p>
                 </div>
-
             </div>
-
-
-            <div class="row align-items-center g-5">
-
-                <div class="col-lg-6">
-
-                    <div class="pontassist-content">
-
-                        <h3>
-                            Your Support Partner in the Treatment Journey
-                        </h3>
-
-                        <p>
-                            Supporting the Zydus Lifesciences Patient
-                            Assistance Program for Diasens, PONTAssist™
-                            helps ensure timely and efficient access to
-                            prescribed therapy.
-                        </p>
-
-                        <p>
-                            Our platform is built to accompany you
-                            throughout your treatment journey, making
-                            the entire process easier and more stress-free.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="col-lg-6">
-
-                    <div class="pontassist-highlight">
-
-                        <div class="row g-4">
-
-                            <div class="col-6">
-
-                                <div class="highlight-item">
-
-                                    <i class="bi bi-check-circle"></i>
-
-                                    <span>
-                                        Easy Enrollment
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-6">
-
-                                <div class="highlight-item">
-
-                                    <i class="bi bi-shield-check"></i>
-
-                                    <span>
-                                        Secure Process
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-6">
-
-                                <div class="highlight-item">
-
-                                    <i class="bi bi-person-check"></i>
-
-                                    <span>
-                                        Patient Assistance
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-6">
-
-                                <div class="highlight-item">
-
-                                    <i class="bi bi-headset"></i>
-
-                                    <span>
-                                        Ongoing Support
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
+    </section>
+    <hr>
+    <section id="steps" class="mt-4" >
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div>
+                        <h5 class='justify-content-start'>What is</h5>
+                        
+                        <h1 class='text-center rxpont1 '>P<span class='rxpont2'>O</span>NT Assist</h1>
+                    </div>
+                    <p class='text-start'>
+                       PontAssist™ is a therapy initiation platform developed by RxPONT. It ensures patients begin and continue their treatment without delays. Supporting Zydus Lifesciences Patient Assistance Program for Diasens, PontAssist™ ensures timely and efficient access to prescribed medications.
 
+
+                    </p>
+                    <p class='text-start'>
+                        Our platform is built to accompany you throughout your treatment journey—making the entire process easier and stress-free.
+
+                    </p>
+                </div>
+                <div class="col-md-6 d-flex align-items-center"data-aos="zoom-in" data-aos-delay="100">
+                    <div>
+                        <img class='w-50' src="{{ asset('images/pont_assist.png') }}" alt="PontAssist" srcset="">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
     </section>
 
-
-    <!-- =====================================================
-         WHAT YOU CAN EXPECT
-    ====================================================== -->
-    <section id="support" class="section-padding">
-
-        <div class="container">
-
-            <div class="row justify-content-center text-center mb-5">
-
-                <div class="col-lg-8">
-
-                    <h2 class="section-title">
-                        What You Can Expect from PONTAssist™
-                    </h2>
-
-                    <p class="section-subtitle">
-                        Your support partner throughout your treatment journey.
-                    </p>
-
-                </div>
-
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">What You Can Expect from PONTAssist<sup>TM</sup></h2>
+                <p class="text-muted">Your Support Partner in the Treatment Journey.</p>
             </div>
-
-
             <div class="row g-4">
+                <div class="col-md-12">
+                    <!-- <h4 class='text-center'>
+                        Your Support Partner in the Treatment Journey
+                    </h4> -->
+                    <p>
+                        <b>PontAssist<sup>TM</sup></b> is designed to make your experience with Diasen CGM safe, easy, and seamless. Through this platform, you gain access to the full benefits of Zydus Patient Support Program.
 
-                <!-- CARD 1 -->
-                <div class="col-md-6 col-lg-4">
+                    </p>
+                    <h5>
+                        Here’s how PontAssist™ supports you:
 
-                    <div class="pont-card">
+                    </h5>
+                    <h6>
+                        <i class="fa-solid fa-circle-dot"></i> Simplified Enrollment Process
+                    </h6>
+                    <p>
+                        Say goodbye to lengthy paper forms. Our secure E-Consent system simplifies the enrollment process with clear, easy-to-understand digital steps.
 
-                        <div class="icon-box">
-                            <i class="bi bi-file-earmark-check"></i>
-                        </div>
+                    </p>
+                    <h6>
+                        <i class="fa-solid fa-circle-dot"></i> Informed and Compliant Consent
+                    </h6>
+                    <p>
+                        We ensure you fully understand your treatment plan before you begin. Our process follows all legal and safety protocols, reducing the chance of errors or misunderstandings.
 
-                        <h5>
-                            Simplified Enrollment Process
-                        </h5>
+                    </p>
+                    <h6>
+                        <i class="fa-solid fa-circle-dot"></i>  Confidential and Secure Data Handling
+                    </h6>
+                    <p>
+                        Your medical and personal data are kept safe and accessible only to authorized healthcare professionals involved in your care.
 
-                        <p>
-                            Say goodbye to lengthy paper forms. Our secure
-                            E-Consent system simplifies enrollment with clear,
-                            easy-to-understand digital steps.
-                        </p>
+                    </p>
+                    <h6>
+                        <i class="fa-solid fa-circle-dot"></i> Installing the CGM and educating about the device
 
-                    </div>
+                    </h6>
+                    <p>
+                        We assist you in Zydus’s Assistance Program. Our team visits you at your convenience to help avoid delays in starting your treatment.
 
+
+                    </p>
+                    <h6>
+                        <i class="fa-solid fa-circle-dot"></i>  Support at Every Step
+                    </h6>
+                    <p>
+                        From medication reminders to follow-ups, PontAssist™ acts as your trusted companion throughout the treatment journey.
+                    </p>
                 </div>
-
-
-                <!-- CARD 2 -->
-                <div class="col-md-6 col-lg-4">
-
-                    <div class="pont-card">
-
-                        <div class="icon-box">
-                            <i class="bi bi-shield-check"></i>
-                        </div>
-
-                        <h5>
-                            Informed &amp; Compliant Consent
-                        </h5>
-
-                        <p>
-                            We help ensure you understand your treatment
-                            process before you begin while following
-                            applicable legal and safety protocols.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- CARD 3 -->
-                <div class="col-md-6 col-lg-4">
-
-                    <div class="pont-card">
-
-                        <div class="icon-box">
-                            <i class="bi bi-lock"></i>
-                        </div>
-
-                        <h5>
-                            Confidential &amp; Secure Data Handling
-                        </h5>
-
-                        <p>
-                            Your personal and medical information is kept
-                            secure and accessible only to authorized
-                            healthcare professionals involved in your care.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- CARD 4 -->
-                <div class="col-md-6 col-lg-4">
-
-                    <div class="pont-card">
-
-                        <div class="icon-box">
-                            <i class="bi bi-heart-pulse"></i>
-                        </div>
-
-                        <h5>
-                            CGM Installation &amp; Education
-                        </h5>
-
-                        <p>
-                            We assist you through the Zydus Assistance
-                            Program. Our team can visit you at your
-                            convenience to help with CGM installation
-                            and device education.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- CARD 5 -->
-                <div class="col-md-6 col-lg-4">
-
-                    <div class="pont-card">
-
-                        <div class="icon-box">
-                            <i class="bi bi-calendar-check"></i>
-                        </div>
-
-                        <h5>
-                            Support at Every Step
-                        </h5>
-
-                        <p>
-                            From reminders to follow-ups, PONTAssist™
-                            acts as your trusted companion throughout
-                            your treatment journey.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- CARD 6 -->
-                <div class="col-md-6 col-lg-4">
-
-                    <div class="pont-card">
-
-                        <div class="icon-box">
-                            <i class="bi bi-headset"></i>
-                        </div>
-
-                        <h5>
-                            Patient Assistance
-                        </h5>
-
-                        <p>
-                            Get guidance and assistance throughout your
-                            Diasens CGM journey so you can start your
-                            prescribed therapy with confidence.
-                        </p>
-
-                    </div>
-
-                </div>
-
+                
+                
             </div>
-
         </div>
-
     </section>
 
-
-    <!-- =====================================================
-         ENROLLMENT SECTION
-    ====================================================== -->
-    <section id="enroll" class="section-padding enroll-section">
-
-        <div class="container">
-
-            <div class="row g-5">
-
-
-                <!-- LEFT CONTACT PANEL -->
-                <div class="col-lg-4">
-
-                    <div class="contact-card">
-
-                        <span class="section-label-light">
-                            GET STARTED
-                        </span>
-
-                        <h2 class="fw-bold mt-2 mb-3">
-                            Enroll Patient Now
-                        </h2>
-
-                        <p class="text-white-50 mb-4">
-                            Get started with the Diasens Patient Support
-                            Program. Our team is here to guide and assist you.
-                        </p>
-
-
-                        <!-- PHONE -->
-                        <div class="phone-item">
-
-                            <div class="contact-icon">
-                                <i class="bi bi-telephone"></i>
-                            </div>
-
-                            <div>
-
-                                <small class="d-block text-white-50">
-                                    Call us
-                                </small>
-
-                                <a
-                                    href="tel:+916827421020"
-                                    class="fw-bold">
-
-                                    +91 6827 421 020
-
-                                </a>
-
-                            </div>
-
+    <!-- PRICING -->
+    <!-- <section id="pricing" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Flexible Plans for Every Scale</h2>
+                <p class="text-muted">Choose the right plan to power your practice.</p>
+            </div>
+            <div class="row g-4 align-items-stretch">
+                 Starter 
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div>
+                            <small class="text-muted fw-bold text-uppercase">Starter</small>
+                            <h2 class="fw-bold my-3">$49 <span class="fs-6 text-muted fw-normal">/mo</span></h2>
+                            <ul class="list-unstyled mb-4 small text-muted">
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> Up to 50 consultations/mo</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> 1 Practitioner Account</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> Basic Scheduling</li>
+                                <li class="mb-2 text-decoration-line-through opacity-50"><i class="bi bi-x me-2"></i> Custom Branding</li>
+                            </ul>
                         </div>
-
-
-                        <!-- WHATSAPP -->
-                        <div class="phone-item">
-
-                            <div class="contact-icon">
-                                <i class="bi bi-whatsapp"></i>
-                            </div>
-
-                            <div>
-
-                                <small class="d-block text-white-50">
-                                    WhatsApp
-                                </small>
-
-                                <a
-                                    href="https://wa.me/916827421020"
-                                    target="_blank"
-                                    class="fw-bold">
-
-                                    Chat with us
-
-                                </a>
-
-                            </div>
-
-                        </div>
-
-
-                        <hr class="border-light opacity-25 my-4">
-
-
-                        <p class="small text-white-50 mb-0">
-                            <i class="bi bi-shield-check me-1"></i>
-                            Don't worry, we don't spam you.
-                        </p>
-
+                        <a href="#" class="btn btn-outline-custom w-100">Get Started</a>
                     </div>
-
                 </div>
+                
+                <div class="col-md-4">
+                    <div class="pricing-card featured">
+                        <span class="pricing-badge">Most Popular</span>
+                        <div>
+                            <small class="text-muted fw-bold text-uppercase">Professional</small>
+                            <h2 class="fw-bold my-3">$129 <span class="fs-6 text-muted fw-normal">/mo</span></h2>
+                            <ul class="list-unstyled mb-4 small text-muted">
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> Unlimited consultations</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> Up to 5 Staff Accounts</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> Advanced EHR & e-Rx</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> Custom Branding</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-coral w-100">Get Started</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div>
+                            <small class="text-muted fw-bold text-uppercase">Enterprise</small>
+                            <h2 class="fw-bold my-3">Custom</h2>
+                            <ul class="list-unstyled mb-4 small text-muted">
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> Unlimited Staff & Clinics</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> Dedicated API Integration</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> 24/7 Priority Support</li>
+                                <li class="mb-2"><i class="bi bi-check2 text-success me-2"></i> Custom SLA Agreement</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-outline-custom w-100">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
 
-
-                <!-- RIGHT FORM -->
+    <!-- FAQ SECTION -->
+    <!-- <section id="faq" class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="text-center mb-5 max-w-xl mx-auto">
+                <h2 class="fw-bold">Frequently Asked Questions</h2>
+                <p class="text-muted">Find answers to common questions about setting up your telehealth clinic.</p>
+            </div>
+            <div class="row justify-content-center">
                 <div class="col-lg-8">
-
-                    <div class="enroll-card">
-
-                        <div class="mb-4">
-
-                            <h2 class="fw-bold mb-2">
-                                Patient Enrollment
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Is MediCloud HIPAA compliant?
+                                </button>
                             </h2>
-
-                            <p class="text-muted mb-0">
-                                Please fill in the required details below.
-                            </p>
-
-                        </div>
-
-
-                        <form
-                            action="#"
-                            method="POST"
-                            id="patientEnrollmentForm">
-
-
-                            <div class="row g-4">
-
-
-                                <!-- PATIENT NAME -->
-                                <div class="col-md-6">
-
-                                    <label class="form-label">
-                                        Patient Full Name
-                                        <span class="required">*</span>
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        name="patient_name"
-                                        class="form-control"
-                                        placeholder="Enter patient full name"
-                                        required>
-
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body small text-muted">
+                                    Yes, MediCloud is fully HIPAA compliant and adheres to end-to-end encryption standards to protect patient confidentiality.
                                 </div>
-
-
-                                <!-- EMAIL -->
-                                <div class="col-md-6">
-
-                                    <label class="form-label">
-                                        Patient Email ID
-                                        <span class="required">*</span>
-                                    </label>
-
-                                    <input
-                                        type="email"
-                                        name="patient_email"
-                                        class="form-control"
-                                        placeholder="Enter email address"
-                                        required>
-
-                                </div>
-
-
-                                <!-- PATIENT CONTACT -->
-                                <div class="col-md-6">
-
-                                    <label class="form-label">
-                                        Patient Contact Number
-                                        <span class="required">*</span>
-                                    </label>
-
-                                    <div class="input-group">
-
-                                        <span class="input-group-text">
-                                            +91
-                                        </span>
-
-                                        <input
-                                            type="tel"
-                                            name="patient_contact"
-                                            class="form-control mobile-number"
-                                            placeholder="10-digit mobile number"
-                                            maxlength="10"
-                                            required>
-
-                                    </div>
-
-                                    <small class="text-muted">
-                                        Don't include country code
-                                    </small>
-
-                                </div>
-
-
-                                <!-- CAREGIVER CONTACT -->
-                                <div class="col-md-6">
-
-                                    <label class="form-label">
-                                        Caregiver Contact Number
-                                        <span class="required">*</span>
-                                    </label>
-
-                                    <div class="input-group">
-
-                                        <span class="input-group-text">
-                                            +91
-                                        </span>
-
-                                        <input
-                                            type="tel"
-                                            name="caregiver_contact"
-                                            class="form-control mobile-number"
-                                            placeholder="10-digit mobile number"
-                                            maxlength="10"
-                                            required>
-
-                                    </div>
-
-                                    <small class="text-muted">
-                                        Don't include country code
-                                    </small>
-
-                                </div>
-
-
-                                <!-- PERMANENT ADDRESS -->
-                                <div class="col-12">
-
-                                    <label class="form-label">
-                                        Permanent Address
-                                        <span class="required">*</span>
-                                    </label>
-
-                                    <textarea
-                                        name="permanent_address"
-                                        id="permanentAddress"
-                                        class="form-control"
-                                        rows="3"
-                                        placeholder="Enter permanent address"
-                                        required></textarea>
-
-                                </div>
-
-
-                                <!-- DELIVERY ADDRESS -->
-                                <div class="col-12">
-
-                                    <label class="form-label">
-                                        Medicine Delivery Address
-                                        <span class="required">*</span>
-                                    </label>
-
-                                    <textarea
-                                        name="delivery_address"
-                                        id="deliveryAddress"
-                                        class="form-control"
-                                        rows="3"
-                                        placeholder="Enter medicine delivery address"
-                                        required></textarea>
-
-
-                                    <div class="form-check mt-2">
-
-                                        <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            id="sameAddress">
-
-                                        <label
-                                            class="form-check-label"
-                                            for="sameAddress">
-
-                                            Same as my permanent address
-
-                                        </label>
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- TERMS -->
-                                <div class="col-12">
-
-                                    <div class="form-check">
-
-                                        <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            name="consent"
-                                            id="consent"
-                                            required>
-
-                                        <label
-                                            class="form-check-label"
-                                            for="consent">
-
-                                            I agree to the
-                                            <a href="#">
-                                                terms and conditions
-                                            </a>
-
-                                            <span class="required">
-                                                *
-                                            </span>
-
-                                        </label>
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- SUBMIT -->
-                                <div class="col-12 pt-2">
-
-                                    <button
-                                        type="submit"
-                                        class="btn btn-enroll">
-
-                                        Enroll Patient
-
-                                        <i class="bi bi-arrow-right ms-2"></i>
-
-                                    </button>
-
-                                </div>
-
                             </div>
-
-                        </form>
-
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    How long does setup take?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body small text-muted">
+                                    You can set up your practice profile and start taking appointments in less than 10 minutes.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Can patients use MediCloud without downloading an app?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body small text-muted">
+                                    Yes! Consultations open directly in any modern browser on mobile or desktop without software installations.
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
+    </section> -->
 
-    </section>
-
-
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-    <footer>
-
-        <div class="container">
-
-            <div class="row align-items-center">
-
-                <div class="col-md-6">
-
-                    <p class="mb-0">
-                        © 2026 RxPONT. All rights reserved.
-                    </p>
-
-                </div>
-
-                <div class="col-md-6 text-md-end mt-2 mt-md-0">
-
-                    <p class="mb-0">
-                        Diasens Connect Patient Support Program
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </footer>
-
-
-    <!-- =====================================================
-         BOOTSTRAP JS
-    ====================================================== -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-    </script>
-
-
-    <!-- =====================================================
-         CUSTOM JS
-    ====================================================== -->
-    <script src="js/home.js"></script>
-
-</body>
-
-</html>
+@endsection

@@ -13,18 +13,21 @@ return new class extends Migration
     {
         Schema::create('patient_enrollments', function (Blueprint $table) {
             $table->id();
+            $table->string('patient_code');
+            $table->string('ref_id', 32)->unique();
+            $table->string('zydus_rep_name')->nullable();
+            $table->boolean('patient_type')->nullable();
             $table->string('full_name')->nullable();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('contact_number')->unique()->nullable();
             $table->string('caregiver_contact_number')->nullable();
-            $table->text('permanent_address')->nullable();
-            $table->text('delivery_address')->nullable();
-            $table->string('gender')->nullable();
-            $table->date('date_of_birth')->nullable();
-            $table->string('nationality')->nullable();
+            $table->string('doctor_name')->nullable();
+            $table->text('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('pincode')->nullable();
+            $table->string('govt_id')->nullable();
             $table->string('prescription')->nullable();
-            $table->string('govt_id')->unique()->nullable();
-            $table->boolean('consent')->default(false);
             $table->integer('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
