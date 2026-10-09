@@ -11,9 +11,9 @@
                 <div class="card card-registration my-4">
                         <!-- Close Button -->
                         <div class="registration-close">
-                           <button type="button" onclick="window.location.href='/'" aria-label="Close">
-                            &times;
-                        </button>
+                            <button type="button" onclick="window.location.href='/'" aria-label="Close">
+                                &times;
+                            </button>
                         </div>
                     <div class="row g-0">
                         
@@ -35,13 +35,6 @@
                                 </div>
 
                                 <!-- Feedback Alerts -->
-                                @if(session('success'))
-                                    <div class="alert alert-success d-flex align-items-center gap-2 rounded-4 py-3 px-4 mb-4 border-0 shadow-sm" role="alert">
-                                        <i class="bi bi-check-circle-fill fs-5 text-success"></i>
-                                        <div>{{ session('success') }}</div>
-                                    </div>
-                                @endif
-
                                 @if($errors->any())
                                     <div class="alert alert-danger rounded-4 py-3 px-4 mb-4 border-0 shadow-sm" role="alert">
                                         <div class="fw-bold mb-1"><i class="bi bi-exclamation-triangle-fill me-1"></i> Please check the errors below:</div>
@@ -76,7 +69,7 @@
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <div class="form-outline">
-                                                <select class="form-select form-select-lg mb-3 @error('patient_type') is-invalid @enderror" 
+                                                <select class="form-select form-control-custom form-select-sm mb-3 @error('patient_type') is-invalid @enderror" 
                                                         name="patient_type" 
                                                         id="patient_type" 
                                                         required>
@@ -185,7 +178,7 @@
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <div class="form-outline">
-                                                <select class="form-select form-select-lg mb-3 @error('state') is-invalid @enderror"
+                                                <select class="form-select form-control-custom form-select-sm mb-3 @error('state') is-invalid @enderror"
                                                         name="state"
                                                         id="state"
                                                         required>
@@ -312,12 +305,9 @@
                                             <i class="bi bi-arrow-right ms-1"></i>
                                         </button>
                                     </div>
-
                                 </form>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -370,5 +360,21 @@
             });
         });
     });
+
+    // SweetAlert success message
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Registration Successful!',
+            text: @json(session('success')),
+            confirmButtonColor: '#F05C38',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ url('/') }}";
+            }
+        });
+    @endif
+    
 </script>
 @endpush

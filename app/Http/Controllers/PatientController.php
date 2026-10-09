@@ -54,11 +54,11 @@ class PatientController extends Controller
 
                 ->editColumn('status', function ($patient) {
                     if ($patient->status == 0) {
-                        return '<span class="badge bg-warning">Pending</span>';
+                        return '<span class="status-badge status-pending">Pending</span>';
                     } elseif ($patient->status == 1) {
                         return '<span class="badge bg-success">Assigned to Nurse</span>';
                     } elseif ($patient->status == 2) {
-                        return '<span class="badge bg-primary">Completed</span>';
+                        return '<span class="status-badge status-approved">Completed</span>';
                     }
 
                     return '<span class="badge bg-secondary">Unknown</span>';

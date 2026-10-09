@@ -53,7 +53,6 @@
         </table>
     </div>
 </div>
-
 @endsection
 
 @push('scripts')

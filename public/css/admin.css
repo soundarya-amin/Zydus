@@ -530,24 +530,20 @@ body {
 .status-badge {
     padding: 6px 12px;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 10px;
     font-weight: 600;
     display: inline-block;
 }
 
 .status-approved {
-    background-color: #e6fbf7;
-    color: #1bcfb4;
+    background: linear-gradient(to right, #84d9d2, #07cdae);
+    color: #ffffff;;
 }
 
 .status-pending {
-    background-color: #fff4e5;
-    color: #ffab00;
-}
+    background: linear-gradient(to right, #ffbf96, #fe7096);
+    color: #ffffff;
 
-.status-review {
-    background-color: #fee7ee;
-    color: #fe7096;
 }
 
 /* ==========================================================================
@@ -566,4 +562,22 @@ body {
         margin-left: 0;
         padding: 20px 15px;
     }
+}
+
+.admin-sidebar {
+    width: 250px;
+    transition: width 0.3s ease;
+}
+
+.admin-sidebar.collapsed {
+    width: 70px;
+}
+
+.admin-sidebar.collapsed .nav-link span,
+.admin-sidebar.collapsed .sidebar-user-info {
+    display: none;
+}
+
+.admin-sidebar.collapsed .nav-left {
+    justify-content: center;
 }

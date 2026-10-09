@@ -21,10 +21,10 @@ class AdminDashboardController extends Controller
             // Calculate dynamic stats from PatientEnrollment
             $totalPatients = PatientEnrollment::count();
             $pendingPatients = PatientEnrollment::where('status', 0)->count();
-            $approvedPatients = PatientEnrollment::where('status', 1)->count();
+            $approvedPatients = PatientEnrollment::where('status', 2)->count();
             
             // Fetch recent patient enrollments
-            $recentPatients = PatientEnrollment::latest()->take(6)->get();
+            $recentPatients = PatientEnrollment::where('status',0)->latest()->take(6)->get();
 
             return view('admin.dashboard', compact(
                 'totalPatients',

@@ -52,3 +52,20 @@
         </li>
     </ul>
 </aside>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('adminSidebar');
+        const toggleBtn = document.getElementById('sidebarToggle');
+
+        if (!sidebar || !toggleBtn) {
+            console.log('Sidebar or toggle button not found');
+            return;
+        }
+
+        toggleBtn.addEventListener('click', function () {
+            sidebar.classList.toggle('collapsed');
+        });
+    });
+</script>

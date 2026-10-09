@@ -1,7 +1,7 @@
 <nav class="admin-navbar">
     <div class="navbar-brand-wrapper">
         <a href="{{ route('admin.dashboard') }}" class="brand-logo-text">
-            <img src="{{ asset('images/Rxpont logo.png') }}" alt="RxPONT Logo" class="logo-img" width="100" height="50"/>
+            <img src="{{ asset('images/Rxpont logo.png') }}" class="w-50 ms-4" alt="RxPONT Logo">
         </a>
     </div>
 
@@ -12,7 +12,7 @@
         <ul class="navbar-nav-right">
             <!-- User Profile Dropdown -->
             <li class="nav-item dropdown">
-                <span class="d-none d-sm-inline">{{ auth()->user()->full_name ?? ' ' }}</span>
+                <span class="d-none d-sm-inline">{{ auth()->user()->name ?? ' ' }}</span>
             </li>
 
             <!-- Fullscreen Toggle -->

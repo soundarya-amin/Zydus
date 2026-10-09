@@ -28,7 +28,7 @@
 
 					<div class="mb-3">
 						<label for="contact_number" class="form-label">Patient Phone number</label>
-						<input type="tel" class="form-control" id="contact_number" name="contact_number" value="{{ old('contact_number', $patient->contact_number) }}" required>
+						<input type="tel" class="form-control" id="contact_number" maxlength="10" name="contact_number" value="{{ old('contact_number', $patient->contact_number) }}" required>
 					</div>
 
 					<div class="mb-3">
