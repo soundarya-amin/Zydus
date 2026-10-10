@@ -48,7 +48,7 @@ class PatientController extends Controller
 
                 ->editColumn('created_at', function ($patient) {
                     return $patient->created_at
-                        ? $patient->created_at->format('d-m-Y H:i')
+                        ? $patient->created_at->format('d-m-Y')
                         : '-';
                 })
 
@@ -139,12 +139,13 @@ class PatientController extends Controller
     {
         try{
             $patient = PatientEnrollment::where('ref_id', $ref_id)->firstOrFail();
-            $patient->update([
-                'full_name' => $request->full_name,
-                'patient_code' => $request->patient_code,
-                'contact_number' => $request->contact_number,
-                'address' => $request->address,
-            ]);
+
+            $patient->full_name = $request->full_name;
+            $patient->patient_code = $request->patient_code;
+            $patient->contact_number = $request->contact_number;
+            $patient->address = $request->address;
+
+            $patient->save();
 
             return redirect()
                 ->route('admin.patients.show', $patient->ref_id)

@@ -40,7 +40,7 @@ class NurseController extends Controller
 
                     ->editColumn('date_assigned', function ($patient) {
                         return $patient->date_assigned
-                            ? $patient->date_assigned
+                            ? \Carbon\Carbon::parse($patient->date_assigned)->format('d-m-Y')
                             : 'N/A';
                     })
 
